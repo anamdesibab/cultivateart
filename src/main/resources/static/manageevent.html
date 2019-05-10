@@ -1,0 +1,30 @@
+<div class="container" ng-controller="manageEventCtl">
+    <div>
+        <table id="datatables" ng-cloak
+
+               cellspacing="0"
+               style="width: 100%;background-color: white;border: 1px solid black;font-size: 1.6em;box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);">
+            <thead>
+            <tr style="background-color:skyblue">
+                <th ng-click="sortBy('shopName')">Event Title <span
+                        ng-show="propertyName === 'eventTitle'"
+                        ng-class="{reverse: reverse}"></span></th>
+                <th ng-click="sortBy('shopName')">Event Date <span
+                        ng-show="propertyName === 'eventDate'"
+                        ng-class="{reverse: reverse}"></span></th>
+            </tr>
+            </thead>
+            <tbody style="height:{{tableHeight-200}}px;">
+            <tr ng-repeat="x in eventInfoList |  filter:searchText"
+                style="background-color: {{(x.priceChanged && x.activeOffer)||x.belowThreshold?'rgba(241, 6, 6, 0.2)':''}};">
+                <td>{{ x.title }}</td>
+                <td>{{ x.date }}</td>
+                <td><a ng-href="#!createEvent/{{ x.id }}" class="clr-6">Edit</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-show="showProgress">
+            Loading Events...
+        </div>
+    </div>
+</div>

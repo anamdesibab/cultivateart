@@ -1,0 +1,24 @@
+spring:
+  mvc :
+    view :
+      prefix : /views/
+      suffix : .html
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url : jdbc:mysql://mysql-instance1.cezgxrp0uvsq.us-east-2.rds.amazonaws.com/mySqlTest?verifyServerCertificate=false&useSSL=false
+    username: mysqlUser
+    password: MyPassword
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+file:
+  logos: http://www.cultivatingart.in/uploads/
+  images: http://www.cultivatingart.in/uploads/

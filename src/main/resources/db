@@ -1,0 +1,14 @@
+jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  datasource:
+    url: jdbc:mysql://cultivateart.cezgxrp0uvsq.us-east-2.rds.amazonaws.com:3306/cultivateart
+    username: cultivate
+    password: c8ltiVatE

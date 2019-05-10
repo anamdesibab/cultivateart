@@ -1,0 +1,57 @@
+<!--========================================================
+                          CONTENT
+=========================================================-->
+<div class="container" ng-controller="createSchoolCtl">
+    <div class="row">
+        <div class="grid_12">
+            <div class="box_1">
+                <h2 class="header_2 wrap_3 clr-1">
+                    {{changeLabel}} School</h2>
+                <p>
+                <div>
+                    <label>School Name: </label>
+                    <input name="schoolname" ng-model="school.name" type="text" size="25" maxlength="15">
+                </div>
+                <div>
+                    <label>School Profile: </label>
+                    <textarea name="school profile" ng-model="school.profile" cols="" rows="5"></textarea>
+                </div>
+                <div>
+                    <label>School Logo with Image:</label>
+                    <input name="" ng-model="school.logo" type="file" file-model="myFile"
+                           ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20KB">
+                    <div id="logo" ng-show="!hideThis">
+                                <img src="{{school.logo}}" alt="Logo" width="75%" height="60px" />
+                    </div>
+                </div>
+                <div>
+                    <label>School Address: </label> <textarea name="schooladdress" ng-model="school.address" cols=""
+                                                              rows=""></textarea>
+                </div>
+                <div>
+                    <label>District: </label> <input name="district" ng-model="school.district" type="text"> <br>
+                    <label>Contact Person: </label> <input name="contactperson" ng-model="school.contactPerson"
+                                                           type="text">
+                </div>
+                <div>
+                    <label>Phone Number 1: </label> <input name="phno1" ng-model="school.phone1" type="text">
+                </div>
+                <div>
+                    <label>Phone Number 2: </label> <input name="phno2" ng-model="school.phone2" type="text">
+                </div>
+                <div>
+                    <label>Email-id: </label> <input name="email" ng-model="school.email" type="text">
+                </div>
+                <div>
+                    <label>Website: </label> <input name="website" ng-model="school.website" type="text">
+
+                </div>
+                <div>
+                    <input name="Create School" type="button" class="fa-spoon" value="{{changeLabel}} School"
+                           ng-click="createSchool(school)">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

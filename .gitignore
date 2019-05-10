@@ -1,0 +1,12 @@
+/target/
+/.classpath
+/.project
+/.settings/
+.terraform/
+
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr

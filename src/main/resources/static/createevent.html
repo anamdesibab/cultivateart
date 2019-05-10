@@ -1,0 +1,37 @@
+<!--========================================================
+                          CONTENT
+=========================================================-->
+<div class="container" ng-controller="createEventCtl">
+    <div class="row">
+        <div class="grid_12">
+            <div class="box_1">
+                <h2 class="header_2 wrap_3 clr-1">
+                    {{changeLabel}} Event</h2>
+                <p>
+                <div>
+                    <label>Event Title: </label>
+                    <input name="eventTitle" ng-model="event.title" type="text" size="25" maxlength="15">
+                </div>
+                <div>
+                    <label>Event Date: </label>
+                    <input name="evenDate" ng-model="event.date" type="text" size="25" maxlength="15">
+                </div>
+                <div>
+                    <label>Event Description</label>
+                    <textarea name="eventDescription" ng-model="event.description" cols=""
+                              rows=""></textarea>
+                </div>
+                <div>
+                    <label>Event Link: </label> <textarea name="eventLink" ng-model="event.link" cols=""
+                                                              rows=""></textarea>
+                </div>
+
+                <div>
+                    <input name="Add Event" type="button" class="fa-spoon" value="{{changeLabel}} Event"
+                           ng-click="createEvent(event)">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

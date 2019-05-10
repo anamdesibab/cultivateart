@@ -1,0 +1,50 @@
+<!--========================================================
+                          CONTENT
+=========================================================-->
+<div class="container" ng-controller="manageSchoolCtl">
+    <div>
+        <table id="datatables" ng-cloak
+
+               cellspacing="0"
+               style="width: 100%;background-color: white;border: 1px solid black;font-size: 1.6em;box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);">
+            <thead>
+            <tr style="background-color:skyblue">
+                <th ng-click="sortBy('shopName')">School Id <span
+                                                                    ng-show="propertyName === 'schoolId'"
+                                                                    ng-class="{reverse: reverse}"></span></th>
+                <th ng-click="sortBy('shopName')">School Name <span
+                                                                    ng-show="propertyName === 'schoolName'"
+                                                                    ng-class="{reverse: reverse}"></span></th>
+                <th ng-click="sortBy('shopName')">School Phone<span
+                                                                    ng-show="propertyName === 'schoolPhone'"
+                                                                    ng-class="{reverse: reverse}"></span></th>
+                <th ng-click="sortBy('school')">School Address<span
+                                                                    ng-show="propertyName === 'schoolAddress'"
+                                                                    ng-class="{reverse: reverse}"></span></th>
+                <th ng-click="sortBy('email')">School Email<span
+                                                                 ng-show="propertyName === 'schoolEmail'"
+                                                                 ng-class="{reverse: reverse}"></span></th>
+                <th ng-click="sortBy('email')">School Website<span
+                                                                 ng-show="propertyName === 'schoolWebsite'"
+                                                                 ng-class="{reverse: reverse}"></span></th>
+            </tr>
+            </thead>
+            <tbody style="height:{{tableHeight-200}}px;">
+            <tr ng-repeat="x in schoolsInfo |  filter:searchText"
+                style="background-color: {{(x.priceChanged && x.activeOffer)||x.belowThreshold?'rgba(241, 6, 6, 0.2)':''}};">
+                <td><a ng-href="#!createSchool/{{ x.id }}" class="clr-6">{{ x.id }}</a></td>
+                <td>{{ x.name }}</td>
+                <td>{{ x.phone }}</td>
+                <td>{{ x.address }}</td>
+                <td>{{x.email}}</td>
+                <td>{{x.website}}</td>
+
+
+            </tr>
+            </tbody>
+        </table>
+        <div ng-show="showProgress">
+            Loading Schools...
+        </div>
+    </div>
+</div>
