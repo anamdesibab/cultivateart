@@ -1,11 +1,8 @@
 package com.aadhya.cultivateart.resource;
 
-import io.swagger.annotations.ApiOperation;
-import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -26,10 +23,9 @@ import java.nio.file.StandardCopyOption;
 @RequestMapping("/imageUpload")
 public class FileController {
 
-    //@Value("${file.logos}")
-    String logoURL = "/Users/ababu/Documents/Arvind/logos/";
+    @Value("${file.logos}")
+    String logoURL ;
 
-    @ApiOperation(value = "Activate Selected Offer For SKU")
     @RequestMapping(value = "/school", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<?> school(@RequestParam("file") MultipartFile file) {
         String url = "";

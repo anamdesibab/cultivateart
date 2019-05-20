@@ -1,4 +1,6 @@
 spring:
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:///Users/ababu/Documents/Arvind/logos/
   mvc :
     view :
       prefix : /views/
@@ -6,9 +8,10 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url : jdbc:mysql://mysql-instance1.cezgxrp0uvsq.us-east-2.rds.amazonaws.com/mySqlTest?verifyServerCertificate=false&useSSL=false
-    username: mysqlUser
-    password: MyPassword
+    #url : jdbc:mysql://mysql-instance1.cezgxrp0uvsq.us-east-2.rds.amazonaws.com/mySqlTest?verifyServerCertificate=false&useSSL=false
+    url : jdbc:mysql://34.74.82.46:3306/cultivateart
+    username: root
+    password: password
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
@@ -20,5 +23,7 @@ spring:
       hibernate:
         format_sql: true
 file:
-  logos: http://www.cultivatingart.in/uploads/
-  images: http://www.cultivatingart.in/uploads/
+  logos: /Users/ababu/Documents/Arvind/logos
+  images: /Users/ababu/Documents/Arvind/images
+
+#spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:///C:/images/
