@@ -1,17 +1,15 @@
 package com.aadhya.cultivateart.dao;
 
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.aadhya.cultivateart.common.Constants.DD_MM_YYYY;
+
 @Entity
 @Table(name = "EVENT_INFO")
 public class EventDO {
-    public static final String DD_MM_YYYY = "DD-MM-YYYY";
     @Id
     @Column(name = "ID")
     private int id;
@@ -24,6 +22,9 @@ public class EventDO {
 
     @Column(name = "LINK")
     private String link;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
 
     @Transient
     private String date;
@@ -45,11 +46,12 @@ public class EventDO {
     }
 
     public Date getEventDate() {
-        return DateTime.parse(date, DateTimeFormat.forPattern(DD_MM_YYYY)).toDate();
+        return this.eventDate;
     }
 
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
+        this.date =  new SimpleDateFormat(DD_MM_YYYY).format(eventDate);
     }
 
     public String getLink() {
@@ -62,10 +64,21 @@ public class EventDO {
     }
 
     public String getDate() {
-        return new SimpleDateFormat(DD_MM_YYYY).format(eventDate);
+        if(null != eventDate) {
+            this.date = new SimpleDateFormat(DD_MM_YYYY).format(eventDate);
+        }
+        return this.date;
     }
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
