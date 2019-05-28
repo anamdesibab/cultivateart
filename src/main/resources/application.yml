@@ -1,6 +1,6 @@
 spring:
   resources:
-    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:///Users/ababu/Documents/Arvind/logos/
+    static-locations: classpath:/static/,file:///Users/ababu/Documents/Arvind/
   mvc :
     view :
       prefix : /views/
@@ -23,7 +23,15 @@ spring:
       hibernate:
         format_sql: true
 file:
+  logos: /home/anamdesibabu/logos
+  images: /home/anamdesibabu/images
+  passport: /home/anamdesibabu/images
+
+---
+spring :
+  profiles : local
+file:
   logos: /Users/ababu/Documents/Arvind/logos
   images: /Users/ababu/Documents/Arvind/images
-
+  passport: /Users/ababu/Documents/Arvind/passport
 #spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:///C:/images/

@@ -21,7 +21,7 @@
                     <input name="" ng-model="school.logo" type="file" file-model="myFile"
                            ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20KB">
                     <div class="logo" id="logo" ng-show="!hideThis">
-                                <img class="logo" src="{{school.logo}}" alt="Logo" width="50px" height="50px" />
+                                <img class="logo" src="logos/{{school.logo}}" alt="Logo" width="50px" height="50px" />
                     </div>
                 </div>
                 <div>
@@ -44,7 +44,6 @@
                 </div>
                 <div>
                     <label>Website: </label> <input name="website" ng-model="school.website" type="text">
-
                 </div>
                 <div>
                     <input name="Create School" type="button" class="fa-spoon" value="{{changeLabel}} School"

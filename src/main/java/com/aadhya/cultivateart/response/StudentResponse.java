@@ -1,20 +1,21 @@
 package com.aadhya.cultivateart.response;
 
 import com.aadhya.cultivateart.dao.SchoolDO;
+import com.aadhya.cultivateart.dao.StudentDO;
 
 import java.util.List;
 
 public class StudentResponse {
 
-    List<SchoolDO> schoolsInfo;
+    List<StudentDO> studentsInfo;
     private String message;
 
-    public List<SchoolDO> getSchoolsInfo() {
-        return schoolsInfo;
+    public List<StudentDO> getStudentsInfo() {
+        return studentsInfo;
     }
 
-    public void setSchoolsInfo(List<SchoolDO> schoolsInfo) {
-        this.schoolsInfo = schoolsInfo;
+    public void setStudentsInfo(List<StudentDO> studentsInfo) {
+        this.studentsInfo = studentsInfo;
     }
 
     public String getMessage() {

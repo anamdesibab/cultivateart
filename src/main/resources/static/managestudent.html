@@ -1,132 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Winners Profile - Students & Schools Art Profiles</title>
-    <meta charset="utf-8">
-    <meta name="format-detection" content="telephone=no"/>
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/grid.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/camera.css"/>
-    <link rel="stylesheet" href="css/owl.carousel.css"/>
-<link href=    'http://fonts.googleapis.com/css?family=Cabin+Sketch:400,700' rel='stylesheet' type='text/css'>
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-migrate-1.2.1.js"></script>
-    <script src="js/jquery.equalheights.js"></script>
-    <script src="js/camera.js"></script>
-    <script src="js/owl.carousel.js"></script>
-    <!--[if lt IE 9]>
-    <div style=' clear: both; text-align:center; position: relative;'>
-        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
-            <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0"
-                 height="42" width="820"
-                 alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."/>
-        </a>
-    </div>
-    <script src="js/html5shiv.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="css/ie.css">
-    <![endif]-->
-</head>
-<body>
-<div class="page">
-<!--========================================================
-                          HEADER
-=========================================================-->
-<header id="header">
-    <div id="stuck_container">
-        <div class="container">
-            <div class="row">
-                <div class="grid_12">
-                    <div class="brand put-left">
-                        <h1>
-                            <a href="index.html">
-                                <img src="images/logo.png" alt="Logo"/>
-                            </a>
-                        </h1>
-                    </div>                    <nav class="nav put-right">
-                        <ul class="sf-menuadmin">
-<li><a href="createschool.html" class="clr-6">Create School</a></li>
-<li><a href="manageschool.html" class="clr-6">Manage School</a></li>
-<li><a href="createevent.html" class="clr-6">Create Event</a></li>
-<li><a href="manageevent.html" class="clr-6">Manage Event</a></li>
-<li><a href="createstudent.html" class="clr-6">Create Student</a></li>
-<li><a href="managestudent.html" class="clr-6">Manage Student</a></li>
-<li><a href="login.html" class="clr-6">Logout</a></li>
-
-                        </ul>
-                    </nav>
-</div>
-            </div>
-        </div>
-    </div>
-</header>
 <!--========================================================
                           CONTENT
 =========================================================-->
-<div class="container">
-    <div class="row wrap_16";>
-        <div class="grid_12">
-            <h2 class="header_2 wrap_3 clr-1">
-           Login Page</h2>
-          <p>User Name: <input name="username" type="text" size="15" maxlength="15">
-            <br>
-            Password: <input name="password" type="password">
-            <br>
-            <input name="Login" type="button" class="fa-spoon" value="Login">
-          <p>&nbsp;</p>
-          <p>&nbsp;</p>
-        </div>
-    </div>
-      </div>
+<div class="container" ng-controller="manageStudentsCtl">
+    <div>
+        <table id="datatables" ng-cloak
+
+               cellspacing="0"
+               style="width: 100%;background-color: white;border: 1px solid black;font-size: 1.6em;box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);">
+            <thead>
+            <tr style="background-color:skyblue">
+                <th ng-click="sortBy('shopName')">Student Id <span
+                        ng-show="propertyName === 'schoolId'"
+                        ng-class="{reverse: reverse}"></span></th>
+                <th ng-click="sortBy('shopName')">Student Name <span
+                        ng-show="propertyName === 'schoolName'"
+                        ng-class="{reverse: reverse}"></span></th>
+                <th ng-click="sortBy('shopName')">School Name<span
+                        ng-show="propertyName === 'schoolPhone'"
+                        ng-class="{reverse: reverse}"></span></th>
+                <th ng-click="sortBy('school')">Phone<span
+                        ng-show="propertyName === 'schoolAddress'"
+                        ng-class="{reverse: reverse}"></span></th>
+
+            </tr>
+            </thead>
+            <tbody style="height:{{tableHeight-200}}px;">
+            <tr ng-repeat="x in studentsInfo |  filter:searchText"
+                style="background-color: {{(x.priceChanged && x.activeOffer)||x.belowThreshold?'rgba(241, 6, 6, 0.2)':''}};">
+                <td><a ng-href="#!createStudent/{{ x.id }}" class="clr-6">{{ x.id }}</a></td>
+                <td>{{ x.name }}</td>
+                <td>{{ x.schoolName }}</td>
+                <td>{{ x.phone }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-show="showProgress">
+            Loading Students...
         </div>
     </div>
 </div>
-<div class="bg_1 wrap_16 wrap_10">
-  <div class="container">
-    <div class="row">
-      <div class="grid_12">
-        <div id="owl_2">
-          <div class="item">
-            <div class="row"> </div>
-                    </div>
-              </div>
-            </div>
-        </div>
-    </div>
-</div>
-</section>
-</div>
-<!--========================================================
-                          FOOTER
-=========================================================-->
-<footer id="footer" class="color_9">
-    <div class="container">
-        <div class="row">
-            <div class="grid_12">
-                <p class="info text_4 color_4">
-                    © <span id="copyright-year"></span> | <a href="about.html">Privacy Policy</a> <br/>
-                    Website designed by <a href="http://www.aadhya.com/" target="_blank" rel="nofollow">aadhya solutions</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
-<script src="js/script.js"></script>
-<!-- Default Statcounter code for Cultivating Art
-http://www.cultivatingart.in -->
-<script type="text/javascript">
-var sc_project=11853117; 
-var sc_invisible=1; 
-var sc_security="f3aea50f"; 
-</script>
-<script type="text/javascript"
-src="https://www.statcounter.com/counter/counter.js"
-async></script>
-<noscript><div class="statcounter"><a title="Web Analytics"
-href="http://statcounter.com/" target="_blank"><img
-class="statcounter"
-src="//c.statcounter.com/11853117/0/f3aea50f/1/" alt="Web
-Analytics"></a></div></noscript>
-<!-- End of Statcounter Code -->
-</body>
-</html>

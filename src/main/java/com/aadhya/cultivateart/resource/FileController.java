@@ -24,16 +24,30 @@ import java.nio.file.StandardCopyOption;
 public class FileController {
 
     @Value("${file.logos}")
-    String logoURL ;
+    String targetLogoLocation;
+
+    @Value("${file.passport}")
+    String targetPassportLocation;
 
     @RequestMapping(value = "/school", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<?> school(@RequestParam("file") MultipartFile file) {
         String url = "";
             try{
-                url = storeFile(file).getURL().toString();
+                url = storeFile(file, targetLogoLocation).getURL().toString();
             }catch (Exception e){
                 e.printStackTrace();
             }
+        return new ResponseEntity("", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/studentPassport", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<?> studentPassport(@RequestParam("file") MultipartFile file) {
+        String url = "";
+        try{
+            url = storeFile(file, targetPassportLocation).getURL().toString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return new ResponseEntity("", HttpStatus.OK);
     }
 
@@ -46,12 +60,12 @@ public class FileController {
                 .collect(Collectors.toList());*/
     }
 
-    private Resource storeFile(MultipartFile file) {
+    private Resource storeFile(MultipartFile file, String targetFileLocation) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             // Copy file to the target location (Replacing existing file with the same name)
-            Path fileStorageLocation = Paths.get(logoURL).toAbsolutePath().normalize();
+            Path fileStorageLocation = Paths.get(targetFileLocation).toAbsolutePath().normalize();
             Path targetLocation = fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             //uploadImage();

@@ -31,4 +31,10 @@ public class EventController {
         return eventService.getAllEvents();
     }
 
+    @ApiOperation(value = "Get Event info")
+    @RequestMapping(value = "/getEventInfo", method = RequestMethod.GET, produces = "application/json")
+    public EventDO manageSchool(int eventId) {
+        return eventService.getEvents(eventId);
+    }
+
 }
