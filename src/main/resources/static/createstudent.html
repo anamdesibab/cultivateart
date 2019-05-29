@@ -46,13 +46,39 @@
                     <label>Email-id: </label>
                     <input name="email" ng-model="student.emailId" type="text">
                 </div>
-                <div>
-                    <label>Event Attended: </label>
-                    <select name="eventAttended" ng-model="student.Attended" ng-options = "x.eventId for x in events"></select>
+                <div ng-repeat="event in studentEvents">
                     <div>
-
+                        <label>Event Attended{{$index}}: </label>
+                        <select name="eventAttended" ng-model="student.eventAttended" >
+                            <option ng-repeat="x in eventInfoList" value="{{x.id}}">{{x.title}}</option>
+                        </select>
+                        <div>
+                            <label>Category: </label>
+                            <select name="eventCategory" ng-model="event.category" ng-options = "x for x in categories"></select>
+                           <!-- <h1>You selected: {{student.eventAttended}}</h1>-->
+                        </div>
+                        <div>
+                            <label>Price Won: </label>
+                            <input name="eventPrice" ng-model="event.prize" type="text">
+                        </div>
+                        <div ng-repeat="image in event.imageSet">
+                            <div>
+                                <label>Add Image of Event {{$index}}:</label>
+                                <input name="" ng-model="image.image" type="file" file-model="myFile"
+                                       ngf-pattern="'image/*'" accept="image/*" ngf-max-size="100KB">
+                            </div>
+                            <div>
+                                <label>Image  Name: </label>
+                                <input name="imageName" ng-model="image.imageName" type="text">
+                                <input name="Add Images" type="button" class="fa-spoon" value="Add Images"
+                                       ng-click="addMoreImages(event)">
+                                <input name="Remove Image" type="button" class="fa-spoon" value="Remove Images"
+                                       ng-click="removeImages(event, image)">
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div>
                     <input name="Create School" type="button" class="fa-spoon" value="{{changeLabel}} School"
                            ng-click="createStudent(student)">

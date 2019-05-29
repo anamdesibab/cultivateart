@@ -39,6 +39,7 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
     $scope.events = $scope.eventInfoList;
     $scope.changeLabel = "Create"
     getEvents($scope, $http);
+
     if($scope.logo != undefined && $scope.logo.length <= 0){
         $scope.hideThis = true;
     }
@@ -53,13 +54,15 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
                 $scope.student = response.data;
                 $scope.showProgress = false;
             });
+    }else{
+        getStudentEvents($scope, $http);
     }
     $scope.createStudent = function(student){
-       var file = $scope.myFile;
-       student.photo = file.name;
-       console.log('file is ' +student.photo);
-       console.dir(file);
-       var uploadUrl = "/imageUpload/studentPassport";
+        var file = $scope.myFile;
+        student.photo = file.name;
+        console.log('file is ' +student.photo);
+        console.dir(file);
+        var uploadUrl = "/imageUpload/studentPassport";
 
         var fd = new FormData();
         fd.append('file', file);
@@ -73,13 +76,21 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
         });
 
 
-       var url = '/student/createStudent';
-       var config = 'content-type:application/json';
-           $http.post(url, student, config).then(function (response) {
-           }, function (response) {
+        var url = '/student/createStudent';
+        var config = 'content-type:application/json';
+            $http.post(url, student, config).then(function (response) {
+            }, function (response) {
                alert("exception.")
-           });
-       };
+            });
+        };
+
+        $scope.addMoreImages = function(event){
+            event.imageSet.push(getImageFields());
+        }
+        $scope.removeImages = function(event, image){
+            var index = event.imageSet.indexOf(image);
+            event.imageSet.splice(index, 1);
+        }
  });
 
 
@@ -154,6 +165,19 @@ function getEvents($scope, $http){
         $scope.eventInfoList = response.data.eventInfoList;
         $scope.showProgress = false;
     });
+}
+
+function getStudentEvents($scope, $http){
+    var image1Fields = getImageFields();
+    var image2Fields = getImageFields();
+    var imageSet = [image1Fields, image2Fields];
+    $scope.studentEvents = [{
+        eventId : 1, category : 1, prize : "", imageSet : imageSet
+    }];
+}
+
+function getImageFields(){
+  return {image: "",  imageName: ""};
 }
 
 app.controller('createEventCtl', function($scope, $http, $routeParams) {
