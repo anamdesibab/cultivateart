@@ -39,6 +39,8 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
     $scope.events = $scope.eventInfoList;
     $scope.changeLabel = "Create"
     getEvents($scope, $http);
+    $scope.student = {};
+    $scope.student.events = [];
 
     if($scope.logo != undefined && $scope.logo.length <= 0){
         $scope.hideThis = true;
@@ -55,35 +57,38 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
                 $scope.showProgress = false;
             });
     }else{
-        getStudentEvents($scope, $http);
+        $scope.student.events.push(getStudentEvents());
+        console.log($scope.student.event);
     }
     $scope.createStudent = function(student){
         var file = $scope.myFile;
         student.photo = file.name;
-        console.log('file is ' +student.photo);
+        console.log('file is name is ' +student.photo);
         console.dir(file);
         var uploadUrl = "/imageUpload/studentPassport";
-
-        var fd = new FormData();
-        fd.append('file', file);
-        $http.post(uploadUrl, fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined, "Content-Disposition" : student.photo}
-        }).then(function (response) {
-            console.log(response.data)
-        }, function (response) {
-            alert("exception while uploading image.")
-        });
-
+        fileUpload($http, uploadUrl,  file, student.photo)
 
         var url = '/student/createStudent';
-        var config = 'content-type:application/json';
-            $http.post(url, student, config).then(function (response) {
+        student.schoolId = "1";
+        var myJSON = JSON.stringify(student)
+        var config = 'content-type:application/string';
+            $http.post(url, myJSON, config).then(function (response) {
             }, function (response) {
                alert("exception.")
             });
         };
 
+        $scope.addEvent = function(){
+             $scope.student.events.push(getStudentEvents());
+        }
+        $scope.removeEvent = function(event){
+            var index =  $scope.student.events.indexOf(event);
+            if($scope.student.events.length > 1 ){
+                $scope.student.events.splice(index, 1);
+            }else{
+                alert("One event should on the student profile");
+            }
+        }
         $scope.addMoreImages = function(event){
             event.imageSet.push(getImageFields());
         }
@@ -93,6 +98,32 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
         }
  });
 
+function fileUpload($http, uploadUrl, file, fileName){
+    var fd = new FormData();
+    fd.append('file', file);
+    $http.post(uploadUrl, fd, {
+        transformRequest: angular.identity,
+        headers: {'Content-Type': undefined, "Content-Disposition" : fileName}
+    }).then(function (response) {
+        console.log(response.data)
+    }, function (response) {
+        alert("exception while uploading image.")
+    });
+}
+
+function getStudentEvents(){
+    var image1Fields = getImageFields();
+    var image2Fields = getImageFields();
+    var imageSet = [image1Fields, image2Fields];
+    return {
+            eventId : 1, category : 1, prize : "", imageSet : imageSet
+           };
+
+}
+
+function getImageFields(){
+  return {image: "",  imageName: ""};
+}
 
 app.controller('manageStudentsCtl', function($scope, $http) {
     $scope.isOpen = false;
@@ -167,19 +198,6 @@ function getEvents($scope, $http){
     });
 }
 
-function getStudentEvents($scope, $http){
-    var image1Fields = getImageFields();
-    var image2Fields = getImageFields();
-    var imageSet = [image1Fields, image2Fields];
-    $scope.studentEvents = [{
-        eventId : 1, category : 1, prize : "", imageSet : imageSet
-    }];
-}
-
-function getImageFields(){
-  return {image: "",  imageName: ""};
-}
-
 app.controller('createEventCtl', function($scope, $http, $routeParams) {
     $scope.changeLabel = "Create"
     if($routeParams.id != undefined){
@@ -229,18 +247,7 @@ app.controller('createSchoolCtl', function($scope, $http, $routeParams) {
        console.log('file is ' +school.logo);
        console.dir(file);
        var uploadUrl = "/imageUpload/school";
-
-        var fd = new FormData();
-        fd.append('file', file);
-        $http.post(uploadUrl, fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined, "Content-Disposition" : school.name}
-        }).then(function (response) {
-            console.log(response.data)
-        }, function (response) {
-            alert("exception while uploading image.")
-        });
-
+       fileUpload($http, uploadUrl,  file, school.logo)
 
        var url = '/cultivatingart/createSchool';
        var config = 'content-type:application/json';

@@ -20,7 +20,7 @@ public class SchoolService {
 
     public SchoolDO getSchoolInfo(int schoolId){
         Optional<SchoolDO> schoolDOOption = schoolRepository.findById(Integer.valueOf(schoolId));
-        return schoolDOOption.isPresent()?schoolDOOption.get():new SchoolDO();
+        return schoolDOOption.isPresent()? schoolDOOption.get(): new SchoolDO();
     }
 
     public  SchoolResponse getAllSchools(){

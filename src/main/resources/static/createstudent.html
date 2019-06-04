@@ -46,10 +46,10 @@
                     <label>Email-id: </label>
                     <input name="email" ng-model="student.emailId" type="text">
                 </div>
-                <div ng-repeat="event in studentEvents">
+                <div ng-repeat="event in student.events">
                     <div>
                         <label>Event Attended{{$index}}: </label>
-                        <select name="eventAttended" ng-model="student.eventAttended" >
+                        <select name="eventAttended" ng-model="event.eventId" >
                             <option ng-repeat="x in eventInfoList" value="{{x.id}}">{{x.title}}</option>
                         </select>
                         <div>
@@ -76,6 +76,10 @@
                                        ng-click="removeImages(event, image)">
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <input name="Add Event" type="button" class="fa-spoon" value="Add Event" ng-click="addEvent()">
+                        <input name="Add Event" type="button" class="fa-spoon" value="Remove Event" ng-click="removeEvent(event)">
                     </div>
                 </div>
 
