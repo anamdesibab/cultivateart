@@ -35,6 +35,7 @@ app.config(function($routeProvider) {
 });
 
 app.controller('createStudentCtl', function($scope, $http, $routeParams) {
+    $scope.files = [];
     $scope.categories = ["1", "2", "3", "4", "5", "6", "7"];
     $scope.events = $scope.eventInfoList;
     $scope.changeLabel = "Create"
@@ -62,17 +63,26 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
     }
     $scope.createStudent = function(student){
         var file = $scope.myFile;
-        student.photo = file.name;
-        console.log('file is name is ' +student.photo);
-        console.dir(file);
         var uploadUrl = "/imageUpload/studentPassport";
-        fileUpload($http, uploadUrl,  file, student.photo)
+        if(file != undefined){
+            student.photo = file.name;
+            console.log('file is name is ' +student.photo);
+            console.dir(file);
+            fileUpload($http, uploadUrl,  file, student.photo);
+        }
+        angular.forEach($scope.files, function(image){
+        var imageName = image.studentId+"_"+image.eventId+"_"+image.name;
+        student.events[image.eventIndex].imageSet[image.imageIndex].image = imageName
+        uploadUrl = "/imageUpload/eventImages";
+            fileUpload($http, uploadUrl,  image.file, imageName);
+        });
 
         var url = '/student/createStudent';
         student.schoolId = "1";
         var myJSON = JSON.stringify(student)
         var config = 'content-type:application/string';
             $http.post(url, myJSON, config).then(function (response) {
+            $scope.student = response.data;
             }, function (response) {
                alert("exception.")
             });
@@ -101,6 +111,7 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
 function fileUpload($http, uploadUrl, file, fileName){
     var fd = new FormData();
     fd.append('file', file);
+    fd.append('fileName', fileName);
     $http.post(uploadUrl, fd, {
         transformRequest: angular.identity,
         headers: {'Content-Type': undefined, "Content-Disposition" : fileName}
@@ -268,6 +279,36 @@ app.directive('fileModel', ['$parse', function ($parse) {
           element.bind('change', function() {
              scope.$apply(function() {
                 modelSetter(scope, element[0].files[0]);
+             });
+          });
+       }
+    };
+ }]);
+
+ app.directive('imageFileModel', ['$parse', function ($parse) {
+    return {
+       restrict: 'A',
+       link: function(scope, element, attrs) {
+          var model = $parse(attrs.imageFileModel);
+          var modelSetter = model.assign;
+
+          element.bind('change', function() {
+             scope.$apply(function() {
+                modelSetter(scope, element[0].files[0]);
+                var item = element[0].files[0];
+                var imageIndex = parseInt(element[0].id);
+                var eventIndex = parseInt(element[0].name);
+                var value = {
+                    name: item.name,
+                    size: item.size,
+                    url: URL.createObjectURL(item),
+                    file: item,
+                    imageIndex: imageIndex,
+                    eventIndex: eventIndex,
+                    studentId:scope.$parent.event.studentId,
+                    eventId: scope.$parent.event.eventId
+                };
+                scope.$parent.$parent.files.push(value);
              });
           });
        }

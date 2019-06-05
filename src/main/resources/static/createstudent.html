@@ -46,9 +46,9 @@
                     <label>Email-id: </label>
                     <input name="email" ng-model="student.emailId" type="text">
                 </div>
-                <div ng-repeat="event in student.events">
+                <div ng-repeat="(eventIndex, event) in student.events">
                     <div>
-                        <label>Event Attended{{$index}}: </label>
+                        <label>Event Attended{{$index+1}}: </label>
                         <select name="eventAttended" ng-model="event.eventId" >
                             <option ng-repeat="x in eventInfoList" value="{{x.id}}">{{x.title}}</option>
                         </select>
@@ -61,11 +61,14 @@
                             <label>Price Won: </label>
                             <input name="eventPrice" ng-model="event.prize" type="text">
                         </div>
-                        <div ng-repeat="image in event.imageSet">
+                        <div ng-repeat="(imageIndex, image) in event.imageSet">
                             <div>
-                                <label>Add Image of Event {{$index}}:</label>
-                                <input name="" ng-model="image.image" type="file" file-model="myFile"
-                                       ngf-pattern="'image/*'" accept="image/*" ngf-max-size="100KB">
+                                <label>Add Image of Event {{eventIndex+1}}:</label>
+                                <input name="{{eventIndex}}" ng-model="image.fileName" type="file" image-file-model="eventImage"
+                                       id="{{imageIndex}}" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="100KB">
+                                <div class="logo"  ng-show="!hideThis">
+                                    <img class="logo" src="images/{{image.image}}" alt="Photo" width="50px" height="50px" />
+                                </div>
                             </div>
                             <div>
                                 <label>Image  Name: </label>

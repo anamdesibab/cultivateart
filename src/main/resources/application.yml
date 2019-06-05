@@ -33,7 +33,7 @@ logging:
               BasicBinder: TRACE
 file:
   logos: /home/anamdesibabu/logos
-  images: /home/anamdesibabu/images
+  eventImages: /home/anamdesibabu/images
   passport: /home/anamdesibabu/images
 
 ---
@@ -41,6 +41,6 @@ spring :
   profiles : local
 file:
   logos: /Users/ababu/Documents/Arvind/logos
-  images: /Users/ababu/Documents/Arvind/images
+  eventImages: /Users/ababu/Documents/Arvind/images
   passport: /Users/ababu/Documents/Arvind/passport
 #spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:///C:/images/

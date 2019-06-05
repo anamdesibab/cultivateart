@@ -31,15 +31,16 @@ public class StudentController {
 
     @ApiOperation(value = "Create Student")
     @RequestMapping(value = "/createStudent", method = RequestMethod.POST, produces = "application/json")
-    public void createStudent(@RequestBody String studentInfo) {
+    public StudentDO createStudent(@RequestBody String studentInfo) {
+//        System.out.println("data got " + studentInfo);
         ObjectMapper mapper = new ObjectMapper();
         try {
             StudentDO studentModel = mapper.readValue(studentInfo, StudentDO.class);
-            studentService.saveStudent(studentModel);
+            return studentService.saveStudent(studentModel);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("data got " + studentInfo);
+        return null;
     }
 
     @ApiOperation(value = "Manage Students")

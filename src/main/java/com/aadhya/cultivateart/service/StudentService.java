@@ -29,7 +29,7 @@ public class StudentService {
     public StudentDO saveStudent(StudentDO studentInfo) {
 
         StudentDO updateStudentInfo =  studentRepository.saveAndFlush(studentInfo);
-        updateStudentInfo.getEvents().forEach(studentEventDO -> {
+        studentInfo.getEvents().forEach(studentEventDO -> {
             studentEventDO.setStudentId(updateStudentInfo.getId());
             StudentEventDO updatedStudentEventDO =  studentEventRepository.save(studentEventDO);
             studentEventDO.getImageSet().stream().forEach(imageSetDO -> {

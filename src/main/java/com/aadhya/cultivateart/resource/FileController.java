@@ -29,11 +29,14 @@ public class FileController {
     @Value("${file.passport}")
     String targetPassportLocation;
 
+    @Value("${file.eventImages}")
+    String targetEventImagesLocation;
+
     @RequestMapping(value = "/school", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<?> school(@RequestParam("file") MultipartFile file) {
         String url = "";
             try{
-                url = storeFile(file, targetLogoLocation).getURL().toString();
+                url = storeFile(file, targetLogoLocation, null ).getURL().toString();
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -41,15 +44,27 @@ public class FileController {
     }
 
     @RequestMapping(value = "/studentPassport", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<?> studentPassport(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> studentPassport(@RequestParam("file") MultipartFile file, @RequestParam("fileName") String fileName) {
         String url = "";
         try{
-            url = storeFile(file, targetPassportLocation).getURL().toString();
+            url = storeFile(file, targetPassportLocation, fileName).getURL().toString();
         }catch (Exception e){
             e.printStackTrace();
         }
         return new ResponseEntity("", HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/eventImages", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<?> eventImages(@RequestParam("file") MultipartFile file, @RequestParam("fileName") String fileName) {
+        String url = "";
+        try{
+            url = storeFile(file, targetEventImagesLocation, fileName).getURL().toString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ResponseEntity("", HttpStatus.OK);
+    }
+
 
     @PostMapping("/uploadMultipleFiles")
     //https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
@@ -60,9 +75,11 @@ public class FileController {
                 .collect(Collectors.toList());*/
     }
 
-    private Resource storeFile(MultipartFile file, String targetFileLocation) {
+    private Resource storeFile(MultipartFile file, String targetFileLocation, String fileName) {
         // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        if(fileName == null) {
+            fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        }
         try {
             // Copy file to the target location (Replacing existing file with the same name)
             Path fileStorageLocation = Paths.get(targetFileLocation).toAbsolutePath().normalize();
