@@ -6,11 +6,12 @@ import com.aadhya.cultivateart.dao.StudentEventDO;
 import com.aadhya.cultivateart.repository.ImageSetRepository;
 import com.aadhya.cultivateart.repository.StudentEventRepository;
 import com.aadhya.cultivateart.repository.StudentRepository;
+import com.aadhya.cultivateart.response.SchoolProfileResponse;
 import com.aadhya.cultivateart.response.StudentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,17 +27,20 @@ public class StudentService {
     @Autowired
     ImageSetRepository imageSetRepository;
 
+    @Autowired
+    SchoolService schoolService;
+
     public StudentDO saveStudent(StudentDO studentInfo) {
 
         StudentDO updateStudentInfo =  studentRepository.saveAndFlush(studentInfo);
-        studentInfo.getEvents().forEach(studentEventDO -> {
+       /* studentInfo.getEvents().forEach(studentEventDO -> {
             studentEventDO.setStudentId(updateStudentInfo.getId());
             StudentEventDO updatedStudentEventDO =  studentEventRepository.save(studentEventDO);
             studentEventDO.getImageSet().stream().forEach(imageSetDO -> {
                 imageSetDO.setStudentEventId(studentEventDO.getId());
                 imageSetRepository.saveAndFlush(imageSetDO);
             });
-        });
+        });*/
 
         return updateStudentInfo;
     }
@@ -53,15 +57,31 @@ public class StudentService {
         return response;
     }
 
-    public StudentDO getEvents(int studentId) {
+    public StudentDO getStudentInfoBy(int studentId) {
         Optional<StudentDO> optionalStudentDO = studentRepository.findById(studentId);
         StudentDO studentDO = optionalStudentDO.isPresent() ? optionalStudentDO.get() : new StudentDO();
-        List<StudentEventDO> studentEventDOList =  studentEventRepository.findEventsBy(studentId);
+        /*List<StudentEventDO> studentEventDOList =  studentEventRepository.findEventsBy(studentId);
         studentDO.setEvents(studentEventDOList);
         studentEventDOList.stream().forEach(studentEventDO -> {
             List<ImageSetDO> imageSetDOList = imageSetRepository.findImageSetBy(studentEventDO.getId());
             studentEventDO.setImageSet(imageSetDOList);
-        });
+        });*/
         return studentDO;
+    }
+
+    public SchoolProfileResponse getSchoolInfoStudent(int schoolId) {
+        SchoolProfileResponse schoolProfileResponse = new SchoolProfileResponse();
+        schoolProfileResponse.setSchoolsInfo(schoolService.getSchoolInfo(schoolId));
+        List<StudentDO> studentsListReturn = new ArrayList<>();
+        List<StudentDO> studentsList = studentRepository.findStudentBySchoolId(schoolId);
+        studentsList.stream().forEach(studentDO -> {
+            studentsListReturn.add(getStudentInfoBy(studentDO.getId()));
+        });
+        schoolProfileResponse.setStudents(studentsListReturn);
+        return schoolProfileResponse;
+    }
+
+    public StudentDO searchStudent(String searchText) {
+        return null;
     }
 }

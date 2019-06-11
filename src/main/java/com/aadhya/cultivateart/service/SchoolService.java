@@ -44,4 +44,10 @@ public class SchoolService {
         response.setSchoolsInfo(schoolsInfo);
         return response;
     }
+
+    public SchoolResponse searchSchool(String searchText){
+        SchoolResponse response = new SchoolResponse();
+        response.setSchoolsInfo(schoolRepository.findBySearchString(searchText));
+        return response;
+    }
 }

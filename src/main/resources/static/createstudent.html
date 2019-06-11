@@ -46,6 +46,12 @@
                     <label>Email-id: </label>
                     <input name="email" ng-model="student.emailId" type="text">
                 </div>
+                <div>
+                    <label>School: </label>
+                    <select name="school" ng-model="student.schoolId" >
+                        <option ng-repeat="x in schoolsInfo" value="{{x.id}}">{{x.name}}</option>
+                    </select>
+                </div>
                 <div ng-repeat="(eventIndex, event) in student.events">
                     <div>
                         <label>Event Attended{{$index+1}}: </label>

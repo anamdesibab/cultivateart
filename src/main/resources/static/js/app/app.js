@@ -3,7 +3,7 @@ var app = angular.module("myApp", ["ngRoute"]);
 app.config(function($routeProvider) {
    $routeProvider
        .when("/", {
-           templateUrl : "login.html"
+           templateUrl : "search.html"
        })
        .when("/createSchool/:id", {
            templateUrl : "createschool.html"
@@ -31,7 +31,15 @@ app.config(function($routeProvider) {
        })
        .when("/manageStudent", {
            templateUrl : "managestudent.html"
-       });
+       }) .when("/search", {
+            templateUrl : "search.html"
+        }).when("/searchresults", {
+            templateUrl : "searchresults.html"
+        }).when("/schoolProfile", {
+            templateUrl : "schoolProfile.html"
+        }).when("/studentProfile", {
+            templateUrl : "studentProfile.html"
+        });
 });
 
 app.controller('createStudentCtl', function($scope, $http, $routeParams) {
@@ -40,6 +48,7 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
     $scope.events = $scope.eventInfoList;
     $scope.changeLabel = "Create"
     getEvents($scope, $http);
+    getSchoolInfo($scope, $http);
     $scope.student = {};
     $scope.student.events = [];
 
@@ -78,7 +87,6 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
         });
 
         var url = '/student/createStudent';
-        student.schoolId = "1";
         var myJSON = JSON.stringify(student)
         var config = 'content-type:application/string';
             $http.post(url, myJSON, config).then(function (response) {
@@ -155,16 +163,7 @@ app.controller('manageSchoolCtl', function($scope, $http) {
     $scope.isOpen = false;
     $scope.showProgress = true;
     $scope.loaded = 50;
-
-    $http.get("/cultivatingart/manageSchool").then(function(response) {
-        console.log(response);
-        $scope.loaded = 100;
-        setTimeout(function() {
-            $scope.displayErrorMsg = false;
-        }, 1000);
-        $scope.schoolsInfo = response.data.schoolsInfo;
-        $scope.showProgress = false;
-    });
+    getSchoolInfo($scope, $http);
 });
 
 
@@ -205,6 +204,18 @@ function getEvents($scope, $http){
             $scope.displayErrorMsg = false;
         }, 1000);
         $scope.eventInfoList = response.data.eventInfoList;
+        $scope.showProgress = false;
+    });
+}
+
+function getSchoolInfo($scope, $http){
+    $http.get("/school/manageSchool").then(function(response) {
+        console.log(response);
+        $scope.loaded = 100;
+        setTimeout(function() {
+            $scope.displayErrorMsg = false;
+        }, 1000);
+        $scope.schoolsInfo = response.data.schoolsInfo;
         $scope.showProgress = false;
     });
 }

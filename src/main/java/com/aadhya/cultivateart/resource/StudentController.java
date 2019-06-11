@@ -1,8 +1,6 @@
 package com.aadhya.cultivateart.resource;
 
-import com.aadhya.cultivateart.dao.EventDO;
 import com.aadhya.cultivateart.dao.StudentDO;
-import com.aadhya.cultivateart.response.StudentModel;
 import com.aadhya.cultivateart.response.StudentResponse;
 import com.aadhya.cultivateart.service.StudentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +24,7 @@ public class StudentController {
     @RequestMapping(value = "/createStudent", method = RequestMethod.POST, produces = "application/json")
     public StudentDO createStudent(@RequestBody String studentInfo) {
         System.out.println("data got " + studentInfo);
-        return studentService.saveStudent(studentInfo);
+        return schoolService.saveStudent(studentInfo);
     }*/
 
     @ApiOperation(value = "Create Student")
@@ -34,13 +32,14 @@ public class StudentController {
     public StudentDO createStudent(@RequestBody String studentInfo) {
 //        System.out.println("data got " + studentInfo);
         ObjectMapper mapper = new ObjectMapper();
+        StudentDO studentModel = null;
         try {
-            StudentDO studentModel = mapper.readValue(studentInfo, StudentDO.class);
+            studentModel = mapper.readValue(studentInfo, StudentDO.class);
             return studentService.saveStudent(studentModel);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return studentModel;
     }
 
     @ApiOperation(value = "Manage Students")
@@ -52,7 +51,13 @@ public class StudentController {
     @ApiOperation(value = "Get Event info")
     @RequestMapping(value = "/getStudentInfo", method = RequestMethod.GET, produces = "application/json")
     public StudentDO getStudentInfo(int studentId) {
-        return studentService.getEvents(studentId);
+        return studentService.getStudentInfoBy(studentId);
+    }
+
+    @ApiOperation(value = "Get Event info")
+    @RequestMapping(value = "/searchStudentStudent", method = RequestMethod.GET, produces = "application/json")
+    public StudentDO searchStudentStudent(String searchText) {
+        return studentService.searchStudent(searchText);
     }
 
 }

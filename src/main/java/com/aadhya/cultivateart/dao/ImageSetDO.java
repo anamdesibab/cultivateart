@@ -23,8 +23,8 @@ public class ImageSetDO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "STUDENT_EVENT_ID")
-    private int studentEventId;
+   /* @Column(name = "STUDENT_EVENT_ID")
+    private int studentEventId;*/
 
     @Column(name = "IMAGE_NAME")
     private String image;
@@ -32,9 +32,9 @@ public class ImageSetDO {
     @Column(name = "IMAGE_DESCRIPTION")
     private String imageName;
 
-    /*@ManyToOne
+    @OneToOne
     @JoinColumn(name="STUDENT_EVENT_ID", nullable = false, updatable = false, insertable = true)
-    private StudentEventDO studentEventDO;*/
+    private StudentEventDO studentEventDO;
 
     public int getId() {
         return id;
@@ -44,13 +44,13 @@ public class ImageSetDO {
         this.id = id;
     }
 
-    public int getStudentEventId() {
+   /* public int getStudentEventId() {
         return studentEventId;
     }
 
     public void setStudentEventId(int studentEventId) {
         this.studentEventId = studentEventId;
-    }
+    }*/
 
     public String getImage() {
         return image;

@@ -1,13 +1,10 @@
 package com.aadhya.cultivateart.dao;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 
 @AllArgsConstructor
@@ -53,8 +50,8 @@ public class StudentDO {
     @Column(name = "CATEGORY")
     private String category;
 
-    //@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "studentDO")
-    @Transient
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "studentDO")
+    //@Transient
     private List<StudentEventDO> events ;
 
     public int getId() {

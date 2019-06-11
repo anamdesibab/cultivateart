@@ -26,6 +26,9 @@ public class EventDO {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "eventDO")
+    private StudentEventDO studentEventDO;
+
     @Transient
     private String date;
 
