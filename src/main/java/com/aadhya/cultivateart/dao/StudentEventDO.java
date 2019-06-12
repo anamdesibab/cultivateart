@@ -21,8 +21,9 @@ public class StudentEventDO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-   /* @Column(name = "EVENT_ID")
-    private int eventId;*/
+    @Column(name = "EVENT_ID")
+    //@Transient
+    private int eventId;
 
     @Column(name = "CATEGORY")
     private String category;
@@ -30,13 +31,28 @@ public class StudentEventDO {
     @Column(name = "PRIZE_WONE")
     private String prize;
 
-   /* @Column(name = "STUDENT_ID")
-    private int studentId;*/
+   /* @Column(name = "STUDENT_ID")*/
+    @Transient
+    private int studentId;
 
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumn(name="STUDENT_ID", referencedColumnName = "id", nullable = false, updatable = false, insertable = true)
-    private StudentDO studentDO;
+    private StudentDO studentDO;*/
 
+    /*public StudentDO getStudentDO() {
+        return studentDO;
+    }
+
+    public void setStudentDO(StudentDO studentDO) {
+        this.studentDO = studentDO;
+    }*/
+
+    //@OneToOne
+    //@JoinColumn(name="EVENT_ID", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
+   /* @OneToOne(mappedBy = "studentEventDO", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, optional = false)*/
+    @Transient
+    private EventDO eventDO;
     public EventDO getEventDO() {
         return eventDO;
     }
@@ -45,11 +61,9 @@ public class StudentEventDO {
         this.eventDO = eventDO;
     }
 
-    @OneToOne
-    @JoinColumn(name="EVENT_ID", referencedColumnName = "id", nullable = false, updatable = false, insertable = true)
-    private EventDO eventDO;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "studentEventDO")
+    //@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "studentEventDO")
+    @OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
+    @JoinColumn(name="STUDENT_EVENT_ID", nullable=false)
     //@Transient
     private List<ImageSetDO> imageSet;
 
@@ -61,13 +75,13 @@ public class StudentEventDO {
         this.id = id;
     }
 
-   /* public int getEventId() {
+    public int getEventId() {
         return eventId;
     }
 
     public void setEventId(int eventId) {
         this.eventId = eventId;
-    }*/
+    }
 
     public String getCategory() {
         return category;
@@ -85,13 +99,13 @@ public class StudentEventDO {
         this.prize = prize;
     }
 
-  /*  public int getStudentId() {
+    public int getStudentId() {
         return studentId;
     }
 
     public void setStudentId(int studentId) {
         this.studentId = studentId;
-    }*/
+    }
 
     public List<ImageSetDO> getImageSet() {
         return imageSet;

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 
 @AllArgsConstructor
@@ -50,9 +51,10 @@ public class StudentDO {
     @Column(name = "CATEGORY")
     private String category;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "studentDO")
+    @OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
+    @JoinColumn(name="STUDENT_ID", nullable=false)
     //@Transient
-    private List<StudentEventDO> events ;
+    private Set<StudentEventDO> events ;
 
     public int getId() {
         return id;
@@ -150,11 +152,11 @@ public class StudentDO {
         this.category = category;
     }
 
-    public List<StudentEventDO> getEvents() {
+    public Set<StudentEventDO> getEvents() {
         return events;
     }
 
-    public void setEvents(List<StudentEventDO> events) {
+    public void setEvents(Set<StudentEventDO> events) {
         this.events = events;
     }
 }

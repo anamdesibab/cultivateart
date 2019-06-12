@@ -10,7 +10,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -29,6 +31,10 @@ public class EventService {
         EventResponse response = new EventResponse();
         response.setEventInfoList(eventRepository.findAll());
         return response;
+    }
+
+    public Map<Integer, EventDO> getAllEventsInMap(){
+        return eventRepository.findAll().stream().collect(Collectors.toMap(event -> event.getId(), event -> event ));
     }
 
     public EventDO getEvents(int eventId){

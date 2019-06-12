@@ -23,7 +23,7 @@
             <div ng-show="schoolSearchResult">
                 <p>Following Schools matched the keyword  &quot;....&quot;</p>
                 <div>
-                    <table id="datatables" ng-cloak
+                    <table id="schoolTable" ng-cloak
 
                            cellspacing="0"
                            style="width: 100%;background-color: white;border: 1px solid black;font-size: 1.6em;box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);">
@@ -70,9 +70,39 @@
             </div>
             <div ng-show="studentSearchResult">
                 <p>Following Students matched the keyword  &quot;....&quot;</p>
-                <p><a href="student profile.html">Sridhar Reddy, Category 6, Johnsons Grammar School, Hyderabad</a></p>
-                <p><a href="student profile.html">Aravind Babu, Category 4, Warangal Public School, Warangal</a></p>
-                <p></p>
+                <div>
+                    <table id="studentTable" ng-cloak
+
+                           cellspacing="0"
+                           style="width: 100%;background-color: white;border: 1px solid black;font-size: 1.6em;box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);">
+                        <thead>
+                        <tr style="background-color:skyblue">
+                            <th ng-click="sortBy('shopName')">Student Id <span
+                                    ng-show="propertyName === 'schoolId'"
+                                    ng-class="{reverse: reverse}"></span></th>
+                            <th ng-click="sortBy('shopName')">Student Name <span
+                                    ng-show="propertyName === 'schoolName'"
+                                    ng-class="{reverse: reverse}"></span></th>
+                            <th ng-click="sortBy('shopName')">School Name<span
+                                    ng-show="propertyName === 'schoolPhone'"
+                                    ng-class="{reverse: reverse}"></span></th>
+                            <th ng-click="sortBy('school')">Phone<span
+                                    ng-show="propertyName === 'schoolAddress'"
+                                    ng-class="{reverse: reverse}"></span></th>
+
+                        </tr>
+                        </thead>
+                        <tbody style="height:{{tableHeight-200}}px;">
+                        <tr ng-repeat="x in studentsInfo |  filter:searchText"
+                            style="background-color: {{(x.priceChanged && x.activeOffer)||x.belowThreshold?'rgba(241, 6, 6, 0.2)':''}};">
+                            <td><a ng-href="#!createStudent/{{ x.id }}" class="clr-6">{{ x.id }}</a></td>
+                            <td>{{ x.name }}</td>
+                            <td>{{ x.schoolName }}</td>
+                            <td>{{ x.phone }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div>
                 <input type="checkbox" ng-model="checked" aria-label="Toggle ngShow"><br />

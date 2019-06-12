@@ -48,15 +48,14 @@
                 </div>
                 <div>
                     <label>School: </label>
-                    <select name="school" ng-model="student.schoolId" >
-                        <option ng-repeat="x in schoolsInfo" value="{{x.id}}">{{x.name}}</option>
+                    <select name="school" ng-model="student.schoolId" ng-options = "school.id as school.name for school in schoolsInfo">
+
                     </select>
                 </div>
                 <div ng-repeat="(eventIndex, event) in student.events">
                     <div>
                         <label>Event Attended{{$index+1}}: </label>
-                        <select name="eventAttended" ng-model="event.eventId" >
-                            <option ng-repeat="x in eventInfoList" value="{{x.id}}">{{x.title}}</option>
+                        <select name="eventAttended" ng-model="event.eventId" ng-options = "event.id as event.title for event in eventInfoList">
                         </select>
                         <div>
                             <label>Category: </label>

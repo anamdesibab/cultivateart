@@ -29,11 +29,21 @@ app.controller('searchCtl', function($window, $scope, $http, $routeParams) {
             }, 1000);
             $scope.schoolsInfo = response.data.schoolsInfo
             $scope.showProgress = false;
+            $scope.schoolSearchResult = true;
         });
 
-        $scope.schoolSearchResult = true;
-                $scope.studentSearchResult = true;
-        //$window.location.href = '/winnersprofiles.html';
+        $http.get("student/searchStudentStudent?searchText="+searchText).then(function(response) {
+            console.log(response);
+            $scope.loaded = 100;
+            setTimeout(function() {
+                $scope.displayErrorMsg = false;
+            }, 1000);
+            $scope.studentsInfo = response.data.studentsInfo;
+            $scope.showProgress = false;
+            $scope.schoolSearchResult = true;
+        });
+
+        $scope.studentSearchResult = true;
     }
 });
 

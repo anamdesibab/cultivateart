@@ -23,7 +23,7 @@ public class ImageSetDO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-   /* @Column(name = "STUDENT_EVENT_ID")
+    /*@Column(name = "STUDENT_EVENT_ID")
     private int studentEventId;*/
 
     @Column(name = "IMAGE_NAME")
@@ -32,9 +32,9 @@ public class ImageSetDO {
     @Column(name = "IMAGE_DESCRIPTION")
     private String imageName;
 
-    @OneToOne
+   /* @OneToOne
     @JoinColumn(name="STUDENT_EVENT_ID", nullable = false, updatable = false, insertable = true)
-    private StudentEventDO studentEventDO;
+    private StudentEventDO studentEventDO;*/
 
     public int getId() {
         return id;

@@ -1,5 +1,6 @@
 package com.aadhya.cultivateart.service;
 
+import com.aadhya.cultivateart.dao.EventDO;
 import com.aadhya.cultivateart.dao.ImageSetDO;
 import com.aadhya.cultivateart.dao.StudentDO;
 import com.aadhya.cultivateart.dao.StudentEventDO;
@@ -11,9 +12,7 @@ import com.aadhya.cultivateart.response.StudentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class StudentService {
@@ -30,8 +29,10 @@ public class StudentService {
     @Autowired
     SchoolService schoolService;
 
-    public StudentDO saveStudent(StudentDO studentInfo) {
+    @Autowired
+    EventService eventService;
 
+    public StudentDO saveStudent(StudentDO studentInfo) {
         StudentDO updateStudentInfo =  studentRepository.saveAndFlush(studentInfo);
        /* studentInfo.getEvents().forEach(studentEventDO -> {
             studentEventDO.setStudentId(updateStudentInfo.getId());
@@ -60,6 +61,11 @@ public class StudentService {
     public StudentDO getStudentInfoBy(int studentId) {
         Optional<StudentDO> optionalStudentDO = studentRepository.findById(studentId);
         StudentDO studentDO = optionalStudentDO.isPresent() ? optionalStudentDO.get() : new StudentDO();
+        Map<Integer, EventDO> eventMap = eventService.getAllEventsInMap();
+        studentDO.getEvents().forEach(studentEventDO -> {
+            studentEventDO.setEventDO(eventMap.get(studentEventDO.getEventId()));
+        });
+
         /*List<StudentEventDO> studentEventDOList =  studentEventRepository.findEventsBy(studentId);
         studentDO.setEvents(studentEventDOList);
         studentEventDOList.stream().forEach(studentEventDO -> {
@@ -81,7 +87,10 @@ public class StudentService {
         return schoolProfileResponse;
     }
 
-    public StudentDO searchStudent(String searchText) {
-        return null;
+    public StudentResponse searchStudent(String searchText) {
+        StudentResponse response = new StudentResponse();
+        List<StudentDO> students = studentRepository.findBySearchString(searchText);
+        response.setStudentsInfo(students);
+        return response;
     }
 }

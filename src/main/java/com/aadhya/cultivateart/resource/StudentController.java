@@ -56,7 +56,7 @@ public class StudentController {
 
     @ApiOperation(value = "Get Event info")
     @RequestMapping(value = "/searchStudentStudent", method = RequestMethod.GET, produces = "application/json")
-    public StudentDO searchStudentStudent(String searchText) {
+    public StudentResponse searchStudentStudent(String searchText) {
         return studentService.searchStudent(searchText);
     }
 

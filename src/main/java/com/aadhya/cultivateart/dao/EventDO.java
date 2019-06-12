@@ -26,9 +26,18 @@ public class EventDO {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "eventDO")
+    //@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "eventDO")
+   /* @OneToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
+    @JoinColumn(name="EVENT_ID", nullable=false)
     private StudentEventDO studentEventDO;
+    public StudentEventDO getStudentEventDO() {
+        return studentEventDO;
+    }
 
+    public void setStudentEventDO(StudentEventDO studentEventDO) {
+        this.studentEventDO = studentEventDO;
+    }
+    */
     @Transient
     private String date;
 
