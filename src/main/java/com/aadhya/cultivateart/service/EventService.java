@@ -10,12 +10,15 @@ import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class EventService {
+
+    List<EventDO> eventsCache = null;
 
 
     @Autowired
@@ -24,17 +27,21 @@ public class EventService {
     public EventDO saveEvent(EventDO eventDO) {
         eventDO.setEventDate(DateTime.parse(eventDO.getDate(),
                 DateTimeFormat.forPattern(Constants.DD_MM_YYYY)).toDate());
+        eventsCache = eventRepository.findAll();
         return eventRepository.save(eventDO);
     }
 
     public EventResponse getAllEvents(){
         EventResponse response = new EventResponse();
-        response.setEventInfoList(eventRepository.findAll());
+        if (null == eventsCache){
+            eventsCache = eventRepository.findAll();
+        }
+        response.setEventInfoList(eventsCache);
         return response;
     }
 
     public Map<Integer, EventDO> getAllEventsInMap(){
-        return eventRepository.findAll().stream().collect(Collectors.toMap(event -> event.getId(), event -> event ));
+        return getAllEvents().getEventInfoList().stream().collect(Collectors.toMap(event -> event.getId(), event -> event ));
     }
 
     public EventDO getEvents(int eventId){

@@ -51,10 +51,21 @@ public class StudentDO {
     @Column(name = "CATEGORY")
     private String category;
 
-    @OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
+    @OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.ALL})
     @JoinColumn(name="STUDENT_ID", nullable=false)
     //@Transient
     private Set<StudentEventDO> events ;
+
+    @Transient
+    private SchoolDO schoolDO;
+
+    public SchoolDO getSchoolDO() {
+        return schoolDO;
+    }
+
+    public void setSchoolDO(SchoolDO schoolDO) {
+        this.schoolDO = schoolDO;
+    }
 
     public int getId() {
         return id;

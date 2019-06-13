@@ -1,18 +1,17 @@
 package com.aadhya.cultivateart.service;
 
-import com.aadhya.cultivateart.dao.EventDO;
-import com.aadhya.cultivateart.dao.ImageSetDO;
-import com.aadhya.cultivateart.dao.StudentDO;
-import com.aadhya.cultivateart.dao.StudentEventDO;
+import com.aadhya.cultivateart.dao.*;
 import com.aadhya.cultivateart.repository.ImageSetRepository;
 import com.aadhya.cultivateart.repository.StudentEventRepository;
 import com.aadhya.cultivateart.repository.StudentRepository;
 import com.aadhya.cultivateart.response.SchoolProfileResponse;
 import com.aadhya.cultivateart.response.StudentResponse;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -61,6 +60,7 @@ public class StudentService {
     public StudentDO getStudentInfoBy(int studentId) {
         Optional<StudentDO> optionalStudentDO = studentRepository.findById(studentId);
         StudentDO studentDO = optionalStudentDO.isPresent() ? optionalStudentDO.get() : new StudentDO();
+        studentDO.setSchoolDO(schoolService.getSchoolInfo(studentDO.getSchoolId()));
         Map<Integer, EventDO> eventMap = eventService.getAllEventsInMap();
         studentDO.getEvents().forEach(studentEventDO -> {
             studentEventDO.setEventDO(eventMap.get(studentEventDO.getEventId()));
@@ -79,10 +79,20 @@ public class StudentService {
         SchoolProfileResponse schoolProfileResponse = new SchoolProfileResponse();
         schoolProfileResponse.setSchoolsInfo(schoolService.getSchoolInfo(schoolId));
         List<StudentDO> studentsListReturn = new ArrayList<>();
-        List<StudentDO> studentsList = studentRepository.findStudentBySchoolId(schoolId);
-        studentsList.stream().forEach(studentDO -> {
-            studentsListReturn.add(getStudentInfoBy(studentDO.getId()));
+        Map<Integer, EventDO> eventMap = eventService.getAllEventsInMap();
+        List<StudentDO> studentsList = studentRepository.findStudentsBySchoolId(schoolId);
+        Map<Integer, StudentDO> studentDOMap = new HashMap<>();
+        studentsList.forEach(studentDO -> {
+            studentDOMap.put(studentDO.getId(), studentDO);
         });
+        studentsList = studentDOMap.values().stream().collect(Collectors.toList());
+        studentsList.stream().forEach(studentDO -> {
+            studentDO.getEvents().forEach(studentEventDO -> {
+                studentEventDO.setEventDO(eventMap.get(studentEventDO.getEventId()));
+            });
+            //studentsListReturn.add(getStudentInfoBy(studentDO.getId()));
+        });
+        studentsListReturn.addAll(studentsList);
         schoolProfileResponse.setStudents(studentsListReturn);
         return schoolProfileResponse;
     }
@@ -90,6 +100,10 @@ public class StudentService {
     public StudentResponse searchStudent(String searchText) {
         StudentResponse response = new StudentResponse();
         List<StudentDO> students = studentRepository.findBySearchString(searchText);
+        Map<Integer, SchoolDO> schoolDOMap = schoolService.getAllSchoolsAsMap();
+        students.forEach(studentDO -> {
+            studentDO.setSchoolDO(schoolDOMap.get(studentDO.getSchoolId()));
+        });
         response.setStudentsInfo(students);
         return response;
     }

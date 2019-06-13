@@ -63,6 +63,21 @@ app.controller('schoolProfileCtl', function($window, $scope, $http, $routeParams
      }
 });
 
+app.controller('studentProfileCtl', function($window, $scope, $http, $routeParams){
+    console.log("Testing");
+    if($routeParams.id != undefined){
+        $http.get("/student/getStudentInfo?studentId="+$routeParams.id).then(function(response) {
+            console.log(response);
+            $scope.loaded = 100;
+            setTimeout(function() {
+                $scope.displayErrorMsg = false;
+            }, 1000);
+            $scope.student = response.data;
+            $scope.showProgress = false;
+        });
+    }
+});
+
 function getEvents($scope, $http){
     $http.get("/event/manageEvent").then(function(response) {
         console.log(response);

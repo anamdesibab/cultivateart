@@ -2,81 +2,80 @@
 <!--========================================================
                           CONTENT
 =========================================================-->
-<div class="container">
+<div class="container"  ng-controller="studentProfileCtl">
     <div>
-        <div class="grid_12">
-            <h2 class="header_1 wrap_3 clr-1">
-          Aadhyan Reddy</h2>
-    <div>
-            <h3 class="header_3 clr-1" align="center">
-           <a href="school profile.html"> Pallavi Aware International School</a><br>
-          LB Nagar, Hyderabad</h3> 
-            </div>
-            <div><span class="header_3 clr-1"><img src="images/index_img02.png" alt="Student Passport Size Photo"></span></div>
-            
-              <p>&nbsp;</p>
-<p h3 class="text_2 clr-1">Following is the art profile of Aadhyan Reddy with Cultivating Art:</p>
-             
-          <table width="600" border="1">
-              <tr>
-                <th h3 class="text_2 color_2" bgcolor="#FF9933" scope="col">Event Name</th>
-                <th h3 class="text_2 color_2" bgcolor="#FF9933" scope="col">Prizes Won</th>
-                <th h3 class="text_2 color_2" bgcolor="#FF9933" scope="col">Category</th>
-            </tr>
-              <tr>
-                <td><a href="#">2nd State Level Drawing Competition - 2019</a></td>
-                <td>Gold Medal @ School level <br> Second Prize @ District Level <br> First Prize @ State Level</td>
-                <td>Category - 6</td>
-              </tr>
-              <tr>
-                <td><a href="#">2nd State Level Drawing Competition - 2019</a></td>
-                <td>Gold Medal @ School level <br> Second Prize @ District Level <br> First Prize @ State Level</td>
-                <td>Category - 5</td>
-              </tr>
-          </table>
-          
-          <p>&nbsp;</p>
-<p h3 class="text_2 clr-1">Following are the arts created by Aadhyan Reddy at different events that have won prizes:</p>
-<p h3 class="text_2 clr-1"><img src="images/index-2_img05.jpg" width="369" height="270"></p>
-<p h3 class="text_2 clr-1">.</p>
-<p h3 class="text_2 clr-1">&nbsp;</p>
+        <div>
+            <div class="grid_12">
+                <h2 class="header_1 wrap_3 clr-1">{{student.name}}</h2>
+                <div>
+                    <h3 class="header_3 clr-1" align="center">
+                        <a href="#!schoolProfile/{{ student.schoolDO.id }}"> {{student.schoolDO.name}}</a><br>
+                        {{student.schoolDO.address}}
+                    </h3>
+                </div>
+                <div><span class="header_3 clr-1"><img src="passport/{{student.photo}}" alt="Student Passport Size Photo"></span></div>
 
+                <p>&nbsp;</p>
+                <p h3 class="text_2 clr-1">Following is the art profile of {{student.name}} with Cultivating Art:</p>
 
-      </div>
-    </div>
-      </div>
-        </div>
-    </div>
-</div>
-<div class="bg_1 wrap_16 wrap_10">
-  <div class="container">
-    <div class="row">
-      <div class="grid_12">
-        <div id="owl_2">
-          <div class="item">
-            <div class="row"> </div>
+                <table width="600" border="1">
+                    <thead>
+                    <tr>
+                        <th h3 class="text_2 color_2" bgcolor="#FF9933" scope="col">Event Name</th>
+                        <th h3 class="text_2 color_2" bgcolor="#FF9933" scope="col">Prizes Won</th>
+                        <th h3 class="text_2 color_2" bgcolor="#FF9933" scope="col">Category</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="event in student.events ">
+                            <td><a href="{{event.eventDO.link}}">{{event.title}}</a></td>
+                            <td><div> {{event.prize}}</div></td>
+                            <td>Category - {{event.category}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>&nbsp;</p>
+                <p h3 class="text_2 clr-1">Following are the arts created by {{student.name}} at different events that have won prizes:</p>
+                <div ng-repeat="event in student.events">
+                    <div ng-repeat="image in event.imageSet">
+                        <p h3 class="text_2 clr-1"><img src="images/{{image.image}}" width="369" height="270"></p>
+                        <p>&nbsp;</p>
                     </div>
-              </div>
+                </div>
+                <p h3 class="text_2 clr-1">.</p>
+                <p h3 class="text_2 clr-1">&nbsp;</p>
+
             </div>
         </div>
     </div>
-</div>
-<div class="container">
-    <div class="row wrap_9 wrap_4 wrap_10">
-        <div class="grid_12">
-            <div class="header_1 wrap_3 color_7">
-                Get in Touch
-            </div>
-            <div class="box_3">
-                <ul class="list_1">
-                    <li><a class="fa fa-twitter" href="#"></a></li>
-                    <li><a class="fa fa-facebook" href="#"></a></li>
-                    <li><a class="fa fa-google-plus" href="#"></a></li>
-                    <li><a class="fa fa-pinterest" href="#"></a></li>
-                </ul>
+    <div class="bg_1 wrap_16 wrap_10">
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div id="owl_2">
+                        <div class="item">
+                            <div class="row"> </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</section>
+    <div class="container">
+        <div class="row wrap_9 wrap_4 wrap_10">
+            <div class="grid_12">
+                <div class="header_1 wrap_3 color_7">
+                    Get in Touch
+                </div>
+                <div class="box_3">
+                    <ul class="list_1">
+                        <li><a class="fa fa-twitter" href="#"></a></li>
+                        <li><a class="fa fa-facebook" href="#"></a></li>
+                        <li><a class="fa fa-google-plus" href="#"></a></li>
+                        <li><a class="fa fa-pinterest" href="#"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

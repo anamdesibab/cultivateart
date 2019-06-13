@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SchoolService {
@@ -27,6 +29,10 @@ public class SchoolService {
         SchoolResponse response = new SchoolResponse();
         response.setSchoolsInfo(schoolRepository.findAll());
         return response;
+    }
+
+    public Map<Integer, SchoolDO> getAllSchoolsAsMap(){
+        return schoolRepository.findAll().stream().collect(Collectors.toMap(schoolDO -> schoolDO.getId(), schoolDO1 -> schoolDO1 ));
     }
 
     public SchoolDO createSchool(SchoolDO schoolInfo){
@@ -50,4 +56,6 @@ public class SchoolService {
         response.setSchoolsInfo(schoolRepository.findBySearchString(searchText));
         return response;
     }
+
+
 }

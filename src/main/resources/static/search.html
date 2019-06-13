@@ -96,20 +96,15 @@
                         <tr ng-repeat="x in studentsInfo |  filter:searchText"
                             style="background-color: {{(x.priceChanged && x.activeOffer)||x.belowThreshold?'rgba(241, 6, 6, 0.2)':''}};">
                             <td><a ng-href="#!createStudent/{{ x.id }}" class="clr-6">{{ x.id }}</a></td>
-                            <td>{{ x.name }}</td>
-                            <td>{{ x.schoolName }}</td>
-                            <td>{{ x.phone }}</td>
+                            <td><a ng-href="#!studentProfile/{{x.schoolDO.id }}" class="clr-6">{{ x.name }}</a></td>
+                            <td><a ng-href="#!schoolProfile/{{x.schoolDO.id }}" class="clr-6">{{ x.schoolDO.name }}</a></td>
+                            <td>{{ x.schoolDO.address }}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div>
-                <input type="checkbox" ng-model="checked" aria-label="Toggle ngShow"><br />
-                <div class="check-element animate-show-hide" ng-show="checked">
-                    I show up when your checkbox is checked.
-                </div>
-            </div>
+
         </div>
     </div>
 </div>

@@ -62,7 +62,7 @@ public class StudentEventDO {
     }
 
     //@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "studentEventDO")
-    @OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
+    @OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.ALL})
     @JoinColumn(name="STUDENT_EVENT_ID", nullable=false)
     //@Transient
     private List<ImageSetDO> imageSet;
