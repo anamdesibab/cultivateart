@@ -10,7 +10,7 @@
                 <p>
                 <div>
                     <label>Student Name: </label>
-                    <input name="studentName" ng-model="student.name" type="text" size="25" maxlength="15">
+                    <input name="studentName" ng-model="student.name" type="text" size="25" maxlength="150">
                 </div>
                 <div>
                     <label>Category: </label>
@@ -26,25 +26,25 @@
                 </div>
                 <div>
                     <label>Parent Name: </label>
-                    <input name="parentName" ng-model="student.parentName" type="text">
+                    <input name="parentName" ng-model="student.parentName" type="text"  maxlength="150">
                 </div>
                 <div>
                     <label>Address: </label>
-                        <input name="address1" ng-model="student.address1" type="text">
-                        <input name="address2" ng-model="student.address2" type="text">
-                        <input name="address3" ng-model="student.address3" type="text">
+                        <input name="address1" ng-model="student.address1" type="text" maxlength="150">
+                        <input name="address2" ng-model="student.address2" type="text" maxlength="150">
+                        <input name="address3" ng-model="student.address3" type="text" maxlength="150">
                 </div>
                 <div>
                     <label>Phone Number 1: </label>
-                    <input name="phno1" ng-model="student.phone" type="text">
+                    <input name="phno1" ng-model="student.phone" type="text" maxlength="30">
                 </div>
                 <div>
                     <label>Phone Number 2: </label>
-                    <input name="phno2" ng-model="student.phone2" type="text">
+                    <input name="phno2" ng-model="student.phone2" type="text" maxlength="30">
                 </div>
                 <div>
                     <label>Email-id: </label>
-                    <input name="email" ng-model="student.emailId" type="text">
+                    <input name="email" ng-model="student.emailId" type="text" maxlength="150">
                 </div>
                 <div>
                     <label>School: </label>
@@ -77,7 +77,7 @@
                             </div>
                             <div>
                                 <label>Image  Name: </label>
-                                <input name="imageName" ng-model="image.imageName" type="text">
+                                <input name="imageName" ng-model="image.imageName" type="text" maxlength="150">
                                 <input name="Add Images" type="button" class="fa-spoon" value="Add Images"
                                        ng-click="addMoreImages(event)">
                                 <input name="Remove Image" type="button" class="fa-spoon" value="Remove Images"

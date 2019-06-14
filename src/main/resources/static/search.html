@@ -14,99 +14,27 @@
     </div>
 </div>
 
-
 <div class="container">
     <div >
         <div class="grid_12">
-            <h3 class="header_3 wrap_3 clr-1">
-                Search results</h3>
-            <div ng-show="schoolSearchResult">
+            <h3 class="header_3 wrap_3 clr-1">Search results</h3>
+            <div  ng-show="schoolSearchResult">
                 <p>Following Schools matched the keyword  &quot;....&quot;</p>
-                <div>
-                    <table id="schoolTable" ng-cloak
-
-                           cellspacing="0"
-                           style="width: 100%;background-color: white;border: 1px solid black;font-size: 1.6em;box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);">
-                        <thead>
-                        <tr style="background-color:skyblue">
-                            <th ng-click="sortBy('shopName')">School Id <span
-                                    ng-show="propertyName === 'schoolId'"
-                                    ng-class="{reverse: reverse}"></span></th>
-                            <th ng-click="sortBy('shopName')">School Name <span
-                                    ng-show="propertyName === 'schoolName'"
-                                    ng-class="{reverse: reverse}"></span></th>
-                            <th ng-click="sortBy('shopName')">School Phone<span
-                                    ng-show="propertyName === 'schoolPhone'"
-                                    ng-class="{reverse: reverse}"></span></th>
-                            <th ng-click="sortBy('school')">School Address<span
-                                    ng-show="propertyName === 'schoolAddress'"
-                                    ng-class="{reverse: reverse}"></span></th>
-                            <th ng-click="sortBy('email')">School Email<span
-                                    ng-show="propertyName === 'schoolEmail'"
-                                    ng-class="{reverse: reverse}"></span></th>
-                            <th ng-click="sortBy('email')">School Website<span
-                                    ng-show="propertyName === 'schoolWebsite'"
-                                    ng-class="{reverse: reverse}"></span></th>
-                        </tr>
-                        </thead>
-                        <tbody style="height:{{tableHeight-200}}px;">
-                        <tr ng-repeat="x in schoolsInfo |  filter:searchText"
-                            style="background-color: {{(x.priceChanged && x.activeOffer)||x.belowThreshold?'rgba(241, 6, 6, 0.2)':''}};">
-                            <td><a ng-href="#!schoolProfile/{{ x.id }}" class="clr-6">{{ x.id }}</a></td>
-                            <td>{{ x.name }}</td>
-                            <td>{{ x.phone }}</td>
-                            <td>{{ x.address }}</td>
-                            <td>{{x.email}}</td>
-                            <td>{{x.website}}</td>
-
-
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div ng-show="showProgress">
-                        Loading Schools...
-                    </div>
+                <div ng-repeat="x in schoolsInfo |  filter:searchText">
+                    <p><a ng-href="#!schoolProfile/{{ x.id }}">{{ x.name }}, {{ x.address }}</a></p>
                 </div>
             </div>
+            <p>&nbsp;</p>
             <div ng-show="studentSearchResult">
                 <p>Following Students matched the keyword  &quot;....&quot;</p>
-                <div>
-                    <table id="studentTable" ng-cloak
-
-                           cellspacing="0"
-                           style="width: 100%;background-color: white;border: 1px solid black;font-size: 1.6em;box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);">
-                        <thead>
-                        <tr style="background-color:skyblue">
-                            <th ng-click="sortBy('shopName')">Student Id <span
-                                    ng-show="propertyName === 'schoolId'"
-                                    ng-class="{reverse: reverse}"></span></th>
-                            <th ng-click="sortBy('shopName')">Student Name <span
-                                    ng-show="propertyName === 'schoolName'"
-                                    ng-class="{reverse: reverse}"></span></th>
-                            <th ng-click="sortBy('shopName')">School Name<span
-                                    ng-show="propertyName === 'schoolPhone'"
-                                    ng-class="{reverse: reverse}"></span></th>
-                            <th ng-click="sortBy('school')">Phone<span
-                                    ng-show="propertyName === 'schoolAddress'"
-                                    ng-class="{reverse: reverse}"></span></th>
-
-                        </tr>
-                        </thead>
-                        <tbody style="height:{{tableHeight-200}}px;">
-                        <tr ng-repeat="x in studentsInfo |  filter:searchText"
-                            style="background-color: {{(x.priceChanged && x.activeOffer)||x.belowThreshold?'rgba(241, 6, 6, 0.2)':''}};">
-                            <td><a ng-href="#!createStudent/{{ x.id }}" class="clr-6">{{ x.id }}</a></td>
-                            <td><a ng-href="#!studentProfile/{{x.schoolDO.id }}" class="clr-6">{{ x.name }}</a></td>
-                            <td><a ng-href="#!schoolProfile/{{x.schoolDO.id }}" class="clr-6">{{ x.schoolDO.name }}</a></td>
-                            <td>{{ x.schoolDO.address }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div ng-repeat="x in studentsInfo |  filter:searchText">
+                    <p><a ng-href="#!studentProfile/{{x.id }}">{{ x.name }}, Category {{ x.category }}, {{ x.schoolDO.name }}, {{ x.schoolDO.address }}</a></p>
                 </div>
+                <p></p>
             </div>
-
         </div>
     </div>
+
 </div>
 
 

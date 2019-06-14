@@ -238,7 +238,8 @@ app.controller('createEventCtl', function($scope, $http, $routeParams) {
        var url = '/event/createEvent';
        var config = 'content-type:application/json';
            $http.post(url, event, config).then(function (response) {
-               alert("Create school for "+school.name);
+               console.log(response);
+               //$router.navigateByUrl("#!createEvent/"+response.data.id);
            }, function (response) {
                alert("exception.")
            });
@@ -253,7 +254,7 @@ app.controller('createSchoolCtl', function($scope, $http, $routeParams) {
     }
     if($routeParams.id != undefined){
         $scope.changeLabel = "Update"
-        $http.get("/cultivatingart/getSchoolInfo?schoolId="+$routeParams.id).then(function(response) {
+        $http.get("/school/getSchoolInfo?schoolId="+$routeParams.id).then(function(response) {
                 console.log(response);
                 $scope.loaded = 100;
                 setTimeout(function() {
@@ -271,7 +272,7 @@ app.controller('createSchoolCtl', function($scope, $http, $routeParams) {
        var uploadUrl = "/imageUpload/school";
        fileUpload($http, uploadUrl,  file, school.logo)
 
-       var url = '/cultivatingart/createSchool';
+       var url = '/school/createSchool';
        var config = 'content-type:application/json';
            $http.post(url, school, config).then(function (response) {
            }, function (response) {

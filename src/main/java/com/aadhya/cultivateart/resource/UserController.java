@@ -27,27 +27,6 @@ public class UserController {
     @Autowired
     SchoolService schoolService;
 
-    @ApiOperation(value = "Create School")
-    @RequestMapping(value = "/createSchool", method = RequestMethod.POST, produces = "application/json")
-    public SchoolDO createSchool(@RequestBody SchoolDO schoolInfo) {
-        System.out.println("data got "+schoolInfo);
-        schoolService.createSchool(schoolInfo);
-        schoolInfo.setLogo("");
-        return schoolInfo;
-    }
-
-    @ApiOperation(value = "Activate Selected Offer For SKU")
-    @RequestMapping(value = "/manageSchool", method = RequestMethod.GET, produces = "application/json")
-    public SchoolResponse manageSchool() {
-        return schoolService.getAllSchools();
-    }
-
-    @ApiOperation(value = "Activate Selected Offer For SKU")
-    @RequestMapping(value = "/getSchoolInfo", method = RequestMethod.GET, produces = "application/json")
-    public SchoolDO getSchoolInfo(@RequestParam(required = true) int schoolId) {
-        return schoolService.getSchoolInfo(schoolId);
-    }
-
 
     @ApiOperation(value = "Login")
     @RequestMapping(value = "/login", method = RequestMethod.GET, produces = "application/json")

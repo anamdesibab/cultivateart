@@ -80,12 +80,12 @@ public class StudentService {
         schoolProfileResponse.setSchoolsInfo(schoolService.getSchoolInfo(schoolId));
         List<StudentDO> studentsListReturn = new ArrayList<>();
         Map<Integer, EventDO> eventMap = eventService.getAllEventsInMap();
-        List<StudentDO> studentsList = studentRepository.findStudentsBySchoolId(schoolId);
-        Map<Integer, StudentDO> studentDOMap = new HashMap<>();
+        Set<StudentDO> studentsList = studentRepository.findStudentsBySchoolId(schoolId);
+        /*Map<Integer, StudentDO> studentDOMap = new HashMap<>();
         studentsList.forEach(studentDO -> {
             studentDOMap.put(studentDO.getId(), studentDO);
         });
-        studentsList = studentDOMap.values().stream().collect(Collectors.toList());
+        studentsList = studentDOMap.values().stream().collect(Collectors.toList());*/
         studentsList.stream().forEach(studentDO -> {
             studentDO.getEvents().forEach(studentEventDO -> {
                 studentEventDO.setEventDO(eventMap.get(studentEventDO.getEventId()));

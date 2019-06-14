@@ -10,7 +10,7 @@
                 <p>
                 <div>
                     <label>Event Title: </label>
-                    <input name="eventTitle" ng-model="event.title" type="text" size="25" maxlength="15">
+                    <input name="eventTitle" ng-model="event.title" type="text" size="25" maxlength="150">
                 </div>
                 <div>
                     <label>Event Date: </label>
@@ -18,8 +18,8 @@
                 </div>
                 <div>
                     <label>Event Description</label>
-                    <textarea name="eventDescription" ng-model="event.description" cols=""
-                              rows=""></textarea>
+                    <input name="eventDescription" ng-model="event.description" cols=""
+                              rows=""  maxlength="1000"/>
                 </div>
                 <div>
                     <label>Event Link: </label> <textarea name="eventLink" ng-model="event.link" cols=""

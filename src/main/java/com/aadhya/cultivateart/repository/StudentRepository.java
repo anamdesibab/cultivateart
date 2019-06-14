@@ -27,7 +27,7 @@ public interface StudentRepository extends JpaRepository<StudentDO, Integer> {
             "\tleft join fetch student.events events\n" +
             "\t\tleft join fetch events.imageSet images\n" +
             "where student.schoolId = ?1")
-    List<StudentDO> findStudentsBySchoolId(int schoolId);
+    Set<StudentDO> findStudentsBySchoolId(int schoolId);
 
     @Query( value="select * from STUDENT_INFO si where si.name like CONCAT('%',:searchString,'%')" +
             "or PARENT_NAME like CONCAT('%',:searchString,'%') or EMAIL_ID like CONCAT('%',:searchString,'%')\n" +
