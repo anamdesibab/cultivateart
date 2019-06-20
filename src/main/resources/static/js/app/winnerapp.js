@@ -29,7 +29,9 @@ app.controller('searchCtl', function($window, $scope, $http, $routeParams) {
             }, 1000);
             $scope.schoolsInfo = response.data.schoolsInfo
             $scope.showProgress = false;
-            $scope.schoolSearchResult = true;
+            if($scope.schoolsInfo.length > 0){
+                $scope.schoolSearchResult = true;
+            }
         });
 
         $http.get("student/searchStudentStudent?searchText="+searchText).then(function(response) {
@@ -40,10 +42,10 @@ app.controller('searchCtl', function($window, $scope, $http, $routeParams) {
             }, 1000);
             $scope.studentsInfo = response.data.studentsInfo;
             $scope.showProgress = false;
-            $scope.schoolSearchResult = true;
+            if($scope.studentsInfo.length > 0){
+                $scope.studentSearchResult = true;
+            }
         });
-
-        $scope.studentSearchResult = true;
     }
 });
 

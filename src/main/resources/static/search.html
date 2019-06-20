@@ -19,14 +19,14 @@
         <div class="grid_12">
             <h3 class="header_3 wrap_3 clr-1">Search results</h3>
             <div  ng-show="schoolSearchResult">
-                <p>Following Schools matched the keyword  &quot;....&quot;</p>
+                <p>Following Schools matched the keyword  &quot;{{searchText}}&quot;</p>
                 <div ng-repeat="x in schoolsInfo |  filter:searchText">
                     <p><a ng-href="#!schoolProfile/{{ x.id }}">{{ x.name }}, {{ x.address }}</a></p>
                 </div>
             </div>
             <p>&nbsp;</p>
             <div ng-show="studentSearchResult">
-                <p>Following Students matched the keyword  &quot;....&quot;</p>
+                <p>Following Students matched the keyword  &quot;{{searchText}}&quot;</p>
                 <div ng-repeat="x in studentsInfo |  filter:searchText">
                     <p><a ng-href="#!studentProfile/{{x.id }}">{{ x.name }}, Category {{ x.category }}, {{ x.schoolDO.name }}, {{ x.schoolDO.address }}</a></p>
                 </div>
