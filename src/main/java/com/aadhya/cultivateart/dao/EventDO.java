@@ -14,6 +14,9 @@ public class EventDO {
     @Column(name = "ID")
     private int id;
 
+    @Transient
+    private String date;
+
     @Column(name = "TITLE")
     private String title;
 
@@ -38,8 +41,18 @@ public class EventDO {
         this.studentEventDO = studentEventDO;
     }
     */
-    @Transient
-    private String date;
+
+    public String getDate() {
+        if(null == date && null != eventDate){
+            this.date = new SimpleDateFormat(DD_MM_YYYY).format(eventDate);
+        }
+        return this.date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
 
     public int getId() {
         return id;
@@ -58,12 +71,14 @@ public class EventDO {
     }
 
     public Date getEventDate() {
+        if(null == date) {
+            this.date = new SimpleDateFormat(DD_MM_YYYY).format(eventDate);
+        }
         return this.eventDate;
     }
 
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
-        this.date =  new SimpleDateFormat(DD_MM_YYYY).format(eventDate);
     }
 
     public String getLink() {
@@ -75,16 +90,6 @@ public class EventDO {
         this.link = link;
     }
 
-    public String getDate() {
-        if(null != eventDate) {
-            this.date = new SimpleDateFormat(DD_MM_YYYY).format(eventDate);
-        }
-        return this.date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public String getDescription() {
         return description;
