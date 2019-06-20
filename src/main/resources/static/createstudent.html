@@ -20,9 +20,9 @@
                     <label>Passport size photo:</label>
                     <input name="" ng-model="student.photo" type="file" file-model="myFile"
                            ngf-pattern="'image/*'" accept="image/*" ngf-max-size="100KB">
-                    <div class="logo" id="logo" ng-show="!hideThis">
+
                         <img class="logo" src="passport/{{student.photo}}" alt="Photo" width="50px" height="50px" />
-                    </div>
+
                 </div>
                 <div>
                     <label>Parent Name: </label>
@@ -71,9 +71,7 @@
                                 <label>Add Image of Event {{eventIndex+1}}:</label>
                                 <input name="{{eventIndex}}" ng-model="image.fileName" type="file" image-file-model="eventImage"
                                        id="{{imageIndex}}" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="100KB">
-                                <div class="logo"  ng-show="!hideThis">
                                     <img class="logo" src="images/{{image.image}}" alt="Photo" width="50px" height="50px" />
-                                </div>
                             </div>
                             <div>
                                 <label>Image  Name: </label>
