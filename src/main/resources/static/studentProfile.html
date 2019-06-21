@@ -13,7 +13,7 @@
                         {{student.schoolDO.address}}
                     </h3>
                 </div>
-                <div><span class="header_3 clr-1"><img src="passport/{{student.photo}}" alt="Student Passport Size Photo"></span></div>
+                <div><span class="header_3 clr-1"><img src="passport/{{student.photo}}" alt="Student Passport Size Photo" width="300px" height="auto" ></span></div>
 
                 <p>&nbsp;</p>
                 <p h3 class="text_2 clr-1">Following is the art profile of {{student.name}} with Cultivating Art:</p>
@@ -36,12 +36,27 @@
                 </table>
                 <p>&nbsp;</p>
                 <p h3 class="text_2 clr-1">Following are the arts created by {{student.name}} at different events that have won prizes:</p>
+
+
+
                 <div ng-repeat="event in student.events">
-                    <div ng-repeat="image in event.imageSet">
-                        <p h3 class="text_2 clr-1"><img src="images/{{image.image}}" width="369" height="270"></p>
-                        <p>&nbsp;</p>
+                    <div class="container sliderimg">
+                        <!-- enumerate all photos -->
+                        <img ng-repeat="photo in event.imageSet" class="slideimg" ng-swipe-right="showPrev()"
+                             ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="images/{{photo.image}}" style="width: 300px;"/>
+                        <!-- prev / next controls -->
+
+                        <!-- extra navigation controls -->
+                        <ul class="navimg">
+                            <li ng-repeat="photo in event.imageSet" ng-class="{'active':isActive($index)}">
+                                <img src="images/{{photo.image}}" alt="{{photo.imageName}}" ng-click="showPhoto($index);" />
+                            </li>
+                        </ul>
                     </div>
                 </div>
+
+
+
                 <p h3 class="text_2 clr-1">.</p>
                 <p h3 class="text_2 clr-1">&nbsp;</p>
 

@@ -66,7 +66,7 @@ app.controller('schoolProfileCtl', function($window, $scope, $http, $routeParams
 });
 
 app.controller('studentProfileCtl', function($window, $scope, $http, $routeParams){
-    console.log("Testing");
+
     if($routeParams.id != undefined){
         $http.get("/student/getStudentInfo?studentId="+$routeParams.id).then(function(response) {
             console.log(response);
@@ -78,6 +78,25 @@ app.controller('studentProfileCtl', function($window, $scope, $http, $routeParam
             $scope.showProgress = false;
         });
     }
+
+    // initial image index
+        $scope._Index = 0;
+        // if a current image is the same as requested image
+        $scope.isActive = function (index) {
+            return $scope._Index === index;
+        };
+        // show prev image
+        $scope.showPrev = function () {
+            $scope._Index = ($scope._Index > 0) ? --$scope._Index : $scope.photos.length - 1;
+        };
+        // show next image
+        $scope.showNext = function () {
+            $scope._Index = ($scope._Index < $scope.photos.length - 1) ? ++$scope._Index : 0;
+        };
+        // show a certain image
+        $scope.showPhoto = function (index) {
+            $scope._Index = index;
+        };
 });
 
 function getEvents($scope, $http){
