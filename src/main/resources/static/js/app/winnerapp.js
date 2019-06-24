@@ -67,6 +67,8 @@ app.controller('schoolProfileCtl', function($window, $scope, $http, $routeParams
 
 app.controller('studentProfileCtl', function($window, $scope, $http, $routeParams){
 
+    $scope.imageSet = [];
+
     if($routeParams.id != undefined){
         $http.get("/student/getStudentInfo?studentId="+$routeParams.id).then(function(response) {
             console.log(response);
@@ -75,6 +77,7 @@ app.controller('studentProfileCtl', function($window, $scope, $http, $routeParam
                 $scope.displayErrorMsg = false;
             }, 1000);
             $scope.student = response.data;
+            $scope.imageSet = getImages($scope.student);
             $scope.showProgress = false;
         });
     }
@@ -98,6 +101,16 @@ app.controller('studentProfileCtl', function($window, $scope, $http, $routeParam
             $scope._Index = index;
         };
 });
+
+function getImages(student){
+    var imagesSet = [];
+    student.events.forEach(event =>{
+        for (image of event.imageSet) {
+            imagesSet.push(image);
+        }
+    })
+    return imagesSet;
+}
 
 function getEvents($scope, $http){
     $http.get("/event/manageEvent").then(function(response) {

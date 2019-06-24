@@ -37,22 +37,18 @@
                 <p>&nbsp;</p>
                 <p h3 class="text_2 clr-1">Following are the arts created by {{student.name}} at different events that have won prizes:</p>
 
+                <div class="container sliderimg">
+                    <!-- enumerate all photos -->
+                    <img ng-repeat="photo in imageSet" class="slideimg" ng-swipe-right="showPrev()"
+                         ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="images/{{photo.image}}" style="height: 300px;"/>
+                    <!-- prev / next controls -->
 
-
-                <div ng-repeat="event in student.events">
-                    <div class="container sliderimg">
-                        <!-- enumerate all photos -->
-                        <img ng-repeat="photo in event.imageSet" class="slideimg" ng-swipe-right="showPrev()"
-                             ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="images/{{photo.image}}" style="width: 300px;"/>
-                        <!-- prev / next controls -->
-
-                        <!-- extra navigation controls -->
-                        <ul class="navimg">
-                            <li ng-repeat="photo in event.imageSet" ng-class="{'active':isActive($index)}">
-                                <img src="images/{{photo.image}}" alt="{{photo.imageName}}" ng-click="showPhoto($index);" />
-                            </li>
-                        </ul>
-                    </div>
+                    <!-- extra navigation controls -->
+                    <ul class="navimg">
+                        <li ng-repeat="photo in imageSet" ng-class="{'active':isActive($index)}">
+                            <img src="images/{{photo.image}}" alt="{{photo.imageName}}" ng-click="showPhoto($index);" />
+                        </li>
+                    </ul>
                 </div>
 
 
