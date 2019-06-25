@@ -1114,8 +1114,20 @@ img.hover-shadow {
 .arrow.next:hover{
     opacity:1;
 }
+.navimgCaption {
+    bottom: -120px;
+    display: block;
+    height: 48px;
+    left: 0;
+    margin: 0 auto;
+    padding: 1em 0 0.8em;
+    position: absolute;
+    right: 0;
+    width: 100%;
+    z-index: 5;
+}
 .navimg {
-    bottom: -250px;
+    bottom: -200px;
     display: block;
     height: 48px;
     left: 0;
@@ -1193,4 +1205,11 @@ img.hover-shadow {
 }
 .slide, .slide.ng-hide-remove.ng-hide-remove-active {
     opacity:1;
+}
+
+.imgCenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width : 40%;
 }

@@ -13,7 +13,9 @@
                         {{student.schoolDO.address}}
                     </h3>
                 </div>
-                <div><span class="header_3 clr-1"><img src="passport/{{student.photo}}" alt="Student Passport Size Photo" width="300px" height="auto" ></span></div>
+                <div class="imgCenter">
+                    <img src="passport/{{student.photo}}" alt="Student Passport Size Photo" width="300px" height="auto" >
+                </div>
 
                 <p>&nbsp;</p>
                 <p h3 class="text_2 clr-1">Following is the art profile of {{student.name}} with Cultivating Art:</p>
@@ -28,7 +30,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="event in student.events ">
-                            <td><a href="{{event.eventDO.link}}">{{event.title}}</a></td>
+                            <td><a href="{{event.eventDO.link}}">{{event.eventDO.title}}</a></td>
                             <td><div> {{event.prize}}</div></td>
                             <td>Category - {{event.category}}</td>
                         </tr>
@@ -41,7 +43,7 @@
                     <!-- enumerate all photos -->
                     <img ng-repeat="photo in imageSet" class="slideimg" ng-swipe-right="showPrev()"
                          ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="images/{{photo.image}}" style="height: 300px;"/>
-                    <!-- prev / next controls -->
+                    <div ng-repeat="photo in imageSet" ng-show="isActive($index)" class="navimgCaption">{{photo.imageName}}</div>
 
                     <!-- extra navigation controls -->
                     <ul class="navimg">

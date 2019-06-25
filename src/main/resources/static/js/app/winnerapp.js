@@ -86,6 +86,7 @@ app.controller('studentProfileCtl', function($window, $scope, $http, $routeParam
         $scope._Index = 0;
         // if a current image is the same as requested image
         $scope.isActive = function (index) {
+            $scope.imageCaption = $scope.imageSet[index].imageName;
             return $scope._Index === index;
         };
         // show prev image
