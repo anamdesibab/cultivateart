@@ -1,6 +1,9 @@
+server:
+  servlet:
+    context-path: /cultivatingart
 spring:
   resources:
-    static-locations: classpath:/static/,file:///Users/ababu/Documents/Arvind/
+    static-locations: classpath:/static/,file:////home/wwwculti/
   mvc :
     view :
       prefix : /views/
@@ -9,9 +12,11 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     #url : jdbc:mysql://mysql-instance1.cezgxrp0uvsq.us-east-2.rds.amazonaws.com/mySqlTest?verifyServerCertificate=false&useSSL=false
-    url : jdbc:mysql://34.74.82.46:3306/cultivateart
-    username: root
-    password: password
+    url : jdbc:mysql://103.235.106.62:3306/wwwculti_CA_WinnersProfiles?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    #url : jdbc:mysql://localhost:3306/cultivateart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    #username: cultivateart
+    username: wwculti_aarvind
+    password: i3lT{xS[VNj3
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
@@ -32,9 +37,9 @@ logging:
             sql:
               BasicBinder: TRACE
 file:
-  logos: /home/anamdesibabu/logos
-  eventImages: /home/anamdesibabu/images
-  passport: /home/anamdesibabu/images
+  logos: /home/wwwculti/logos
+  eventImages: /home/wwwculti/images
+  passport: /home/wwwculti/images
 
 ---
 spring :
