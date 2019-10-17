@@ -1,9 +1,7 @@
-server:
-  servlet:
-    context-path: /cultivatingart
+
 spring:
   resources:
-    static-locations: classpath:/static/,file:////home/wwwculti/
+    static-locations: classpath:/static/,file:///home/winnersc/public_html/
   mvc :
     view :
       prefix : /views/
@@ -37,13 +35,20 @@ logging:
             sql:
               BasicBinder: TRACE
 file:
-  logos: /home/wwwculti/logos
-  eventImages: /home/wwwculti/images
-  passport: /home/wwwculti/images
+  logos: /home/winnersc/public_html/logos
+  eventImages: /home/winnersc/public_html/images
+  passport: /home/winnersc/public_html/passport
 
 ---
 spring :
   profiles : local
+  resources:
+    static-locations: classpath:/static/,file:///Users/ababu/Documents/Arvind/
+  datasource:
+    url : jdbc:mysql://localhost:3306/cultivateart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: MySqlServer
+
 file:
   logos: /Users/ababu/Documents/Arvind/logos
   eventImages: /Users/ababu/Documents/Arvind/images
