@@ -57,7 +57,7 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
     }
     if($routeParams.id != undefined){
         $scope.changeLabel = "Update"
-        $http.get("/student/getStudentInfo?studentId="+$routeParams.id).then(function(response) {
+        $http.get("/cultivatingart/student/getStudentInfo?studentId="+$routeParams.id).then(function(response) {
                 console.log(response);
                 $scope.loaded = 100;
                 setTimeout(function() {
@@ -72,7 +72,7 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
     }
     $scope.createStudent = function(student){
         var file = $scope.myFile;
-        var uploadUrl = "/imageUpload/studentPassport";
+        var uploadUrl = "/cultivatingart/imageUpload/studentPassport";
         if(file != undefined){
             student.photo = file.name;
             console.log('file is name is ' +student.photo);
@@ -82,11 +82,11 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
         angular.forEach($scope.files, function(image){
         var imageName = image.studentId+"_"+image.eventId+"_"+image.name;
         student.events[image.eventIndex].imageSet[image.imageIndex].image = imageName
-        uploadUrl = "/imageUpload/eventImages";
+        uploadUrl = "/cultivatingart/imageUpload/eventImages";
             fileUpload($http, uploadUrl,  image.file, imageName);
         });
 
-        var url = '/student/createStudent';
+        var url = '/cultivatingart/student/createStudent';
         var myJSON = JSON.stringify(student)
         var config = 'content-type:application/string';
             $http.post(url, myJSON, config).then(function (response) {
@@ -94,6 +94,9 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
             }, function (response) {
                alert("exception.")
             });
+                var uploadUrl = "/imageUpload/studentPassport";
+           alert("Student information save successfully");
+           window.location.href = "./#!/manageStudent";
         };
 
         $scope.addEvent = function(){
@@ -114,6 +117,7 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
             var index = event.imageSet.indexOf(image);
             event.imageSet.splice(index, 1);
         }
+
  });
 
 function fileUpload($http, uploadUrl, file, fileName){
@@ -128,6 +132,7 @@ function fileUpload($http, uploadUrl, file, fileName){
     }, function (response) {
         alert("exception while uploading image.")
     });
+    alert("Done uploading file to location "+ uploadUrl);
 }
 
 function getStudentEvents(){
@@ -149,7 +154,7 @@ app.controller('manageStudentsCtl', function($scope, $http) {
     $scope.showProgress = true;
     $scope.loaded = 50;
 
-    $http.get("/student/manageStudents").then(function(response) {
+    $http.get("/cultivatingart/student/manageStudents").then(function(response) {
         console.log(response);
         $scope.loaded = 100;
         setTimeout(function() {
@@ -173,7 +178,7 @@ app.controller('loginCtl', function($scope, $http) {
         if($scope.userName == undefined || $scope.userName.length <= 0){
             alert("User Name and Password fields are mandatory ");
         }else{
-            $http.get("cultivatingart/login?userId="+$scope.userName+"&password=password"+$scope.password).then(function(response) {
+            $http.get("/cultivatingart/login?userId="+$scope.userName+"&password=password"+$scope.password).then(function(response) {
                  console.log(response);
                  window.location.href='#';
                  setTimeout(function() {
@@ -197,7 +202,7 @@ app.controller('manageEventCtl', function($scope, $http) {
 });
 
 function getEvents($scope, $http){
-    $http.get("/event/manageEvent").then(function(response) {
+    $http.get("/cultivatingart/event/manageEvent").then(function(response) {
         console.log(response);
         $scope.loaded = 100;
         setTimeout(function() {
@@ -209,7 +214,7 @@ function getEvents($scope, $http){
 }
 
 function getSchoolInfo($scope, $http){
-    $http.get("/school/manageSchool").then(function(response) {
+    $http.get("/cultivatingart/school/manageSchool").then(function(response) {
         console.log(response);
         $scope.loaded = 100;
         setTimeout(function() {
@@ -224,7 +229,7 @@ app.controller('createEventCtl', function($scope, $http, $routeParams) {
     $scope.changeLabel = "Create"
     if($routeParams.id != undefined){
         $scope.changeLabel = "Update"
-        $http.get("/event/getEventInfo?eventId="+$routeParams.id).then(function(response) {
+        $http.get("/cultivatingart/event/getEventInfo?eventId="+$routeParams.id).then(function(response) {
                 console.log(response);
                 $scope.loaded = 100;
                 setTimeout(function() {
@@ -235,7 +240,7 @@ app.controller('createEventCtl', function($scope, $http, $routeParams) {
             });
     }
     $scope.createEvent = function(event){
-       var url = '/event/createEvent';
+       var url = '/cultivatingart/event/createEvent';
        var config = 'content-type:application/json';
            $http.post(url, event, config).then(function (response) {
                console.log(response);
@@ -243,6 +248,8 @@ app.controller('createEventCtl', function($scope, $http, $routeParams) {
            }, function (response) {
                alert("exception.")
            });
+           alert("Event information save successfully");
+           window.location.href = "./#!/manageEvent";
        };
  });
 
@@ -254,7 +261,7 @@ app.controller('createSchoolCtl', function($scope, $http, $routeParams) {
     }
     if($routeParams.id != undefined){
         $scope.changeLabel = "Update"
-        $http.get("/school/getSchoolInfo?schoolId="+$routeParams.id).then(function(response) {
+        $http.get("/cultivatingart/school/getSchoolInfo?schoolId="+$routeParams.id).then(function(response) {
                 console.log(response);
                 $scope.loaded = 100;
                 setTimeout(function() {
@@ -266,18 +273,22 @@ app.controller('createSchoolCtl', function($scope, $http, $routeParams) {
     }
     $scope.createSchool = function(school){
        var file = $scope.myFile;
-       school.logo = file.name;
-       console.log('file is ' +school.logo);
-       console.dir(file);
-       var uploadUrl = "/imageUpload/school";
-       fileUpload($http, uploadUrl,  file, school.logo)
+       if(file != undefined){
+           school.logo = file.name;
+           console.log('file is ' +school.logo);
+           console.dir(file);
+           var uploadUrl = "/cultivatingart/imageUpload/school";
+           fileUpload($http, uploadUrl,  file, school.logo)
+       }
 
-       var url = '/school/createSchool';
+       var url = '/cultivatingart/school/createSchool';
        var config = 'content-type:application/json';
            $http.post(url, school, config).then(function (response) {
            }, function (response) {
                alert("exception.")
            });
+       alert("School information save successfully");
+       window.location.href = "./#!/manageSchool";
        };
  });
 

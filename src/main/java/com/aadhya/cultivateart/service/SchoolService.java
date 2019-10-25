@@ -2,7 +2,10 @@ package com.aadhya.cultivateart.service;
 
 import com.aadhya.cultivateart.repository.SchoolRepository;
 import com.aadhya.cultivateart.dao.SchoolDO;
+import com.aadhya.cultivateart.resource.FileController;
 import com.aadhya.cultivateart.response.SchoolResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class SchoolService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SchoolService.class);
 
     @Autowired
     SchoolRepository schoolRepository;
@@ -36,8 +40,14 @@ public class SchoolService {
     }
 
     public SchoolDO createSchool(SchoolDO schoolInfo){
-        schoolInfo = schoolRepository.save(schoolInfo);
-        return schoolInfo;
+        try {
+            LOGGER.info("Creating school with {}", schoolInfo.getName());
+            schoolInfo = schoolRepository.save(schoolInfo);
+            return schoolInfo;
+        }catch (Exception e){
+            LOGGER.error("Exception while creating school ", e.getMessage());
+        }
+        return null;
     }
 
     public static SchoolResponse schoolDummyData(){

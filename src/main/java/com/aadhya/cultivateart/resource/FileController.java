@@ -1,5 +1,7 @@
 package com.aadhya.cultivateart.resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -23,6 +25,8 @@ import java.nio.file.StandardCopyOption;
 @RequestMapping("/imageUpload")
 public class FileController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
+
     @Value("${file.logos}")
     String targetLogoLocation;
 
@@ -36,6 +40,7 @@ public class FileController {
     public ResponseEntity<?> school(@RequestParam("file") MultipartFile file) {
         String url = "";
             try{
+                LOGGER.info("Uploading school Logo {}", file.getBytes());
                 url = storeFile(file, targetLogoLocation, null ).getURL().toString();
             }catch (Exception e){
                 e.printStackTrace();
@@ -47,6 +52,7 @@ public class FileController {
     public ResponseEntity<?> studentPassport(@RequestParam("file") MultipartFile file, @RequestParam("fileName") String fileName) {
         String url = "";
         try{
+            LOGGER.info("Uploading StudentPassport {}", fileName);
             url = storeFile(file, targetPassportLocation, fileName).getURL().toString();
         }catch (Exception e){
             e.printStackTrace();
@@ -58,6 +64,7 @@ public class FileController {
     public ResponseEntity<?> eventImages(@RequestParam("file") MultipartFile file, @RequestParam("fileName") String fileName) {
         String url = "";
         try{
+            LOGGER.info("Uploading event Images {}", fileName);
             url = storeFile(file, targetEventImagesLocation, fileName).getURL().toString();
         }catch (Exception e){
             e.printStackTrace();
@@ -103,11 +110,13 @@ public class FileController {
             if(resource.exists()) {
                 return resource;
             } else {
-                System.out.println("error ");
+                LOGGER.error("error while uploading file ");
             }
+            LOGGER.info("Complete uploading the images to location {}", filePath.toUri());
         } catch (MalformedURLException ex) {
-            System.out.println("error File not found " + ex.getLocalizedMessage());
+            LOGGER.error("error File not found " + ex.getLocalizedMessage());
         }
+
         return null;
     }
 

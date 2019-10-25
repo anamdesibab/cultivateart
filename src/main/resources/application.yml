@@ -1,4 +1,6 @@
-
+server:
+  servlet:
+    context-path: /cultivatingart
 spring:
   resources:
     static-locations: classpath:/static/,file:///home/winnersc/public_html/
@@ -10,11 +12,11 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     #url : jdbc:mysql://mysql-instance1.cezgxrp0uvsq.us-east-2.rds.amazonaws.com/mySqlTest?verifyServerCertificate=false&useSSL=false
-    url : jdbc:mysql://103.235.106.62:3306/wwwculti_CA_WinnersProfiles?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url : jdbc:mysql://winners.cultivatingart.in:3306/winnersc_CA_WinnersProfiles?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     #url : jdbc:mysql://localhost:3306/cultivateart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    #username: cultivateart
-    username: wwculti_aarvind
-    password: i3lT{xS[VNj3
+    #username: cultivateart   cultapp  UfvGy?kqTlt^
+    username: winnersc_aarvind
+    password: 8U~dqwh9RVLO
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:

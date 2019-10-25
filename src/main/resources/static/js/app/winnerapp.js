@@ -21,7 +21,7 @@ app.controller('searchCtl', function($window, $scope, $http, $routeParams) {
     $scope.search = function(searchText){
         console.log("Search text is "+searchText);
 
-         $http.get("school/searchSchool?searchText="+searchText).then(function(response) {
+         $http.get("/cultivatingart/school/searchSchool?searchText="+searchText).then(function(response) {
             console.log(response);
             $scope.loaded = 100;
             setTimeout(function() {
@@ -34,7 +34,7 @@ app.controller('searchCtl', function($window, $scope, $http, $routeParams) {
             }
         });
 
-        $http.get("student/searchStudentStudent?searchText="+searchText).then(function(response) {
+        $http.get("/cultivatingart/student/searchStudentStudent?searchText="+searchText).then(function(response) {
             console.log(response);
             $scope.loaded = 100;
             setTimeout(function() {
@@ -52,7 +52,7 @@ app.controller('searchCtl', function($window, $scope, $http, $routeParams) {
 app.controller('schoolProfileCtl', function($window, $scope, $http, $routeParams){
      getEvents($scope, $http);
      if($routeParams.id != undefined){
-        $http.get("/school/getSchoolProfile?schoolId="+$routeParams.id).then(function(response) {
+        $http.get("/cultivatingart/school/getSchoolProfile?schoolId="+$routeParams.id).then(function(response) {
             console.log(response);
             $scope.loaded = 100;
             setTimeout(function() {
@@ -70,7 +70,7 @@ app.controller('studentProfileCtl', function($window, $scope, $http, $routeParam
     $scope.imageSet = [];
 
     if($routeParams.id != undefined){
-        $http.get("/student/getStudentInfo?studentId="+$routeParams.id).then(function(response) {
+        $http.get("/cultivatingart/student/getStudentInfo?studentId="+$routeParams.id).then(function(response) {
             console.log(response);
             $scope.loaded = 100;
             setTimeout(function() {
@@ -114,7 +114,7 @@ function getImages(student){
 }
 
 function getEvents($scope, $http){
-    $http.get("/event/manageEvent").then(function(response) {
+    $http.get("/cultivatingart/event/manageEvent").then(function(response) {
         console.log(response);
         $scope.loaded = 100;
         setTimeout(function() {
