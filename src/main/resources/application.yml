@@ -1,6 +1,4 @@
-server:
-  servlet:
-    context-path: /cultivatingart
+
 spring:
   resources:
     static-locations: classpath:/static/,file:///home/winnersc/public_html/
@@ -31,11 +29,11 @@ logging:
   level:
     org:
       hibernate:
-        SQL: DEBUG
+        SQL: INFO
         type:
           descriptor:
             sql:
-              BasicBinder: TRACE
+              BasicBinder: INFO
 file:
   logos: /home/winnersc/public_html/logos
   eventImages: /home/winnersc/public_html/images

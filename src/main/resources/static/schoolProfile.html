@@ -32,7 +32,7 @@
                           <tr ng-repeat="x in students ">
                             <td><a href="#!studentProfile/{{x.id}}"> {{x.name}}</a></td>
                             <td><div ng-repeat="event in x.events"> {{event.prize}}</div></td>
-                            <td><div ng-repeat="event in x.events"> <a href="{{event.eventDO.link}}">{{event.eventDO.title}}</a></div> <br></td>
+                            <td><div ng-repeat="event in x.events"> {{event.eventDO.title}}</div> <br></td>
                           </tr>
                       </tbody>
                   </table>
