@@ -1,59 +1,65 @@
-
 <!--========================================================
                           CONTENT
 =========================================================-->
 <div class="container" ng-controller="searchCtl">
-<div>
     <div>
-        <div class="grid_12">
-              <input name="searchText" ng-model="searchText" type="text" value="Enter student or school name">
-              <input name="search" type="button" class="fa-spoon" value="Search"
-                   ng-click="search(searchText)">
+        <div>
+            <div class="grid_12">
+                <input name="searchText" ng-model="searchText" type="text" value="Enter student or school name">
+                <input name="search" type="button" class="fa-spoon" value="Search"
+                       ng-click="search(searchText)">
+            </div>
         </div>
     </div>
-</div>
+    <div ng-show="showProgress">
+        Loading search results...
+    </div>
 
-<div class="container">
-    <div >
-        <div class="grid_12">
-            <h3 class="header_3 wrap_3 clr-1">Search results</h3>
-            <div  ng-show="schoolSearchResult">
-                <p>Following Schools matched the keyword  &quot;{{searchText}}&quot;</p>
-                <div ng-repeat="x in schoolsInfo |  filter:searchText">
-                    <p><a ng-href="#!schoolProfile/{{ x.id }}">{{ x.name }}, {{ x.address }}</a></p>
+    <div ng-show="noresults">
+        No records found for search text.
+    </div>
+    <div class="container">
+        <div>
+            <div class="grid_12">
+                <h3 class="header_3 wrap_3 clr-1">Search results</h3>
+                <div ng-show="schoolSearchResult">
+                    <p>Following Schools matched the keyword &quot;{{searchText}}&quot;</p>
+                    <div ng-repeat="x in schoolsInfo |  filter:searchText">
+                        <p><a ng-href="#!schoolProfile/{{ x.id }}">{{ x.name }}, {{ x.address }}</a></p>
+                    </div>
+                </div>
+                <p>&nbsp;</p>
+                <div ng-show="studentSearchResult">
+                    <p>Following Students matched the keyword &quot;{{searchText}}&quot;</p>
+                    <div ng-repeat="x in studentsInfo |  filter:searchText">
+                        <p><a ng-href="#!studentProfile/{{x.id }}">{{ x.name }}, Category {{ x.category }}, {{
+                            x.schoolDO.name }}, {{ x.schoolDO.address }}</a></p>
+                    </div>
+                    <p></p>
                 </div>
             </div>
-            <p>&nbsp;</p>
-            <div ng-show="studentSearchResult">
-                <p>Following Students matched the keyword  &quot;{{searchText}}&quot;</p>
-                <div ng-repeat="x in studentsInfo |  filter:searchText">
-                    <p><a ng-href="#!studentProfile/{{x.id }}">{{ x.name }}, Category {{ x.category }}, {{ x.schoolDO.name }}, {{ x.schoolDO.address }}</a></p>
+        </div>
+
+    </div>
+
+
+    <div class="container">
+        <div class="row wrap_9 wrap_4 wrap_10">
+            <div class="grid_12">
+                <div class="header_1 wrap_3 color_7">
+                    Get in Touch
                 </div>
-                <p></p>
+                <div class="box_3">
+                    <ul class="list_1">
+                        <li><a class="fa fa-twitter" href="#"></a></li>
+                        <li><a class="fa fa-facebook" href="#"></a></li>
+                        <li><a class="fa fa-google-plus" href="#"></a></li>
+                        <li><a class="fa fa-pinterest" href="#"></a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-
-</div>
-
-
-<div class="container">
-    <div class="row wrap_9 wrap_4 wrap_10">
-        <div class="grid_12">
-            <div class="header_1 wrap_3 color_7">
-                Get in Touch
-            </div>
-            <div class="box_3">
-                <ul class="list_1">
-                    <li><a class="fa fa-twitter" href="#"></a></li>
-                    <li><a class="fa fa-facebook" href="#"></a></li>
-                    <li><a class="fa fa-google-plus" href="#"></a></li>
-                    <li><a class="fa fa-pinterest" href="#"></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-</section>
+    </section>
 </div>
 </div>

@@ -57,7 +57,7 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
     }
     if($routeParams.id != undefined){
         $scope.changeLabel = "Update"
-        $http.get("/student/getStudentInfo?studentId="+$routeParams.id).then(function(response) {
+        $http.get("http://winners.cultivatingart.in/student/getStudentInfo?studentId="+$routeParams.id).then(function(response) {
                 console.log(response);
                 $scope.loaded = 100;
                 setTimeout(function() {
@@ -72,7 +72,7 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
     }
     $scope.createStudent = function(student){
         var file = $scope.myFile;
-        var uploadUrl = "/imageUpload/studentPassport";
+        var uploadUrl = "http://winners.cultivatingart.in/imageUpload/studentPassport";
         if(file != undefined){
             student.photo = file.name;
             console.log('file is name is ' +student.photo);
@@ -82,11 +82,11 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
         angular.forEach($scope.files, function(image){
         var imageName = image.studentId+"_"+image.eventId+"_"+image.name;
         student.events[image.eventIndex].imageSet[image.imageIndex].image = imageName
-        uploadUrl = "/imageUpload/eventImages";
+        uploadUrl = "http://winners.cultivatingart.in/imageUpload/eventImages";
             fileUpload($http, uploadUrl,  image.file, imageName);
         });
 
-        var url = '/student/createStudent';
+        var url = 'http://winners.cultivatingart.in/student/createStudent';
         var myJSON = JSON.stringify(student)
         var config = 'content-type:application/string';
             $http.post(url, myJSON, config).then(function (response) {
@@ -94,9 +94,9 @@ app.controller('createStudentCtl', function($scope, $http, $routeParams) {
             }, function (response) {
                alert("exception.")
             });
-                var uploadUrl = "/imageUpload/studentPassport";
+                var uploadUrl = "http://winners.cultivatingart.in/imageUpload/studentPassport";
            alert("Student information save successfully");
-           window.location.href = "./#!/manageStudent";
+           window.location.href = "./admin.html#!/manageStudent";
         };
 
         $scope.addEvent = function(){
@@ -154,7 +154,7 @@ app.controller('manageStudentsCtl', function($scope, $http) {
     $scope.showProgress = true;
     $scope.loaded = 50;
 
-    $http.get("/student/manageStudents").then(function(response) {
+    $http.get("http://winners.cultivatingart.in/student/manageStudents").then(function(response) {
         console.log(response);
         $scope.loaded = 100;
         setTimeout(function() {
@@ -202,7 +202,7 @@ app.controller('manageEventCtl', function($scope, $http) {
 });
 
 function getEvents($scope, $http){
-    $http.get("/event/manageEvent").then(function(response) {
+    $http.get("http://winners.cultivatingart.in/event/manageEvent").then(function(response) {
         console.log(response);
         $scope.loaded = 100;
         setTimeout(function() {
@@ -214,7 +214,7 @@ function getEvents($scope, $http){
 }
 
 function getSchoolInfo($scope, $http){
-    $http.get("/school/manageSchool").then(function(response) {
+    $http.get("http://winners.cultivatingart.in/school/manageSchool").then(function(response) {
         console.log(response);
         $scope.loaded = 100;
         setTimeout(function() {
@@ -229,7 +229,7 @@ app.controller('createEventCtl', function($scope, $http, $routeParams) {
     $scope.changeLabel = "Create"
     if($routeParams.id != undefined){
         $scope.changeLabel = "Update"
-        $http.get("/event/getEventInfo?eventId="+$routeParams.id).then(function(response) {
+        $http.get("http://winners.cultivatingart.in/event/getEventInfo?eventId="+$routeParams.id).then(function(response) {
                 console.log(response);
                 $scope.loaded = 100;
                 setTimeout(function() {
@@ -240,7 +240,7 @@ app.controller('createEventCtl', function($scope, $http, $routeParams) {
             });
     }
     $scope.createEvent = function(event){
-       var url = '/event/createEvent';
+       var url = 'http://winners.cultivatingart.in/event/createEvent';
        var config = 'content-type:application/json';
            $http.post(url, event, config).then(function (response) {
                console.log(response);
@@ -249,7 +249,7 @@ app.controller('createEventCtl', function($scope, $http, $routeParams) {
                alert("exception.")
            });
            alert("Event information save successfully");
-           window.location.href = "./#!/manageEvent";
+           window.location.href = "./admin.html#!/manageEvent";
        };
  });
 
@@ -261,7 +261,7 @@ app.controller('createSchoolCtl', function($scope, $http, $routeParams) {
     }
     if($routeParams.id != undefined){
         $scope.changeLabel = "Update"
-        $http.get("/school/getSchoolInfo?schoolId="+$routeParams.id).then(function(response) {
+        $http.get("http://winners.cultivatingart.in/school/getSchoolInfo?schoolId="+$routeParams.id).then(function(response) {
                 console.log(response);
                 $scope.loaded = 100;
                 setTimeout(function() {
@@ -277,18 +277,18 @@ app.controller('createSchoolCtl', function($scope, $http, $routeParams) {
            school.logo = file.name;
            console.log('file is ' +school.logo);
            console.dir(file);
-           var uploadUrl = "/imageUpload/school";
+           var uploadUrl = "http://winners.cultivatingart.in/imageUpload/school";
            fileUpload($http, uploadUrl,  file, school.logo)
        }
 
-       var url = '/school/createSchool';
+       var url = 'http://winners.cultivatingart.in/school/createSchool';
        var config = 'content-type:application/json';
            $http.post(url, school, config).then(function (response) {
            }, function (response) {
                alert("exception.")
            });
        alert("School information save successfully");
-       window.location.href = "./#!/manageSchool";
+       window.location.href = "./admin.html#!/manageSchool";
        };
  });
 

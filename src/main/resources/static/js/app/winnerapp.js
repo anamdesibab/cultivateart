@@ -20,8 +20,9 @@ app.controller('searchCtl', function($window, $scope, $http, $routeParams) {
     $scope.studentSearchResult = false;
     $scope.search = function(searchText){
         console.log("Search text is "+searchText);
-
-         $http.get("/school/searchSchool?searchText="+searchText).then(function(response) {
+        $scope.noresults = false;
+        $scope.showProgress = true;
+         $http.get("http://winners.cultivatingart.in/school/searchSchool?searchText="+searchText).then(function(response) {
             console.log(response);
             $scope.loaded = 100;
             setTimeout(function() {
@@ -34,7 +35,7 @@ app.controller('searchCtl', function($window, $scope, $http, $routeParams) {
             }
         });
 
-        $http.get("/student/searchStudentStudent?searchText="+searchText).then(function(response) {
+        $http.get("http://winners.cultivatingart.in/student/searchStudentStudent?searchText="+searchText).then(function(response) {
             console.log(response);
             $scope.loaded = 100;
             setTimeout(function() {
@@ -46,13 +47,18 @@ app.controller('searchCtl', function($window, $scope, $http, $routeParams) {
                 $scope.studentSearchResult = true;
             }
         });
+
+        if(!$scope.schoolSearchResult && !$scope.studentSearchResult){
+            $scope.noresults = true;
+        }
+
     }
 });
 
 app.controller('schoolProfileCtl', function($window, $scope, $http, $routeParams){
      getEvents($scope, $http);
      if($routeParams.id != undefined){
-        $http.get("/school/getSchoolProfile?schoolId="+$routeParams.id).then(function(response) {
+        $http.get("http://winners.cultivatingart.in/school/getSchoolProfile?schoolId="+$routeParams.id).then(function(response) {
             console.log(response);
             $scope.loaded = 100;
             setTimeout(function() {
@@ -70,7 +76,7 @@ app.controller('studentProfileCtl', function($window, $scope, $http, $routeParam
     $scope.imageSet = [];
 
     if($routeParams.id != undefined){
-        $http.get("/student/getStudentInfo?studentId="+$routeParams.id).then(function(response) {
+        $http.get("http://winners.cultivatingart.in/student/getStudentInfo?studentId="+$routeParams.id).then(function(response) {
             console.log(response);
             $scope.loaded = 100;
             setTimeout(function() {
@@ -114,7 +120,7 @@ function getImages(student){
 }
 
 function getEvents($scope, $http){
-    $http.get("/event/manageEvent").then(function(response) {
+    $http.get("http://winners.cultivatingart.in/event/manageEvent").then(function(response) {
         console.log(response);
         $scope.loaded = 100;
         setTimeout(function() {
